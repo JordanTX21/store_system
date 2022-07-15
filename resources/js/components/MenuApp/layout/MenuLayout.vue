@@ -8,7 +8,7 @@
 
                 <div class="sidenav-header  align-items-center">
                     <a class="navbar-brand d-inline-block" href="#">
-                        Letona Store
+                        {{ appName }}
                     </a>
                     <button type="button" class="close p-2" id="dismiss">
                         <span aria-hidden="true">×</span>
@@ -50,6 +50,15 @@ import ListItem from '../components/ListItem'
 export default {
     components: {
         ListItem,
+    },
+    props: {
+        userLogued: {
+            type: Object,
+        },
+        appName: {
+            type: String,
+            default: '',
+        },
     },
     data() {
         return {

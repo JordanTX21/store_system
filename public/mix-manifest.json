@@ -3,5 +3,9 @@
     "/css/app.css": "/css/app.css",
     "/home.js": "/home.js",
     "/module.js": "/module.js",
-    "/css/all.css": "/css/all.css"
+    "/css/all.css": "/css/all.css",
+    "/listuser.js": "/listuser.js",
+    "/newuser.js": "/newuser.js",
+    "/user.js": "/user.js",
+    "/vendors~listuser.js": "/vendors~listuser.js"
 }

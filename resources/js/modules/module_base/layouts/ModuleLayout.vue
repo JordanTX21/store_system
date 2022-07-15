@@ -1,7 +1,6 @@
 <template>
-  <div class="mt-5">
     <div class="main-content">
-      <div class="header bg-primary pb-6">
+      <div class="header bg-default pb-6">
         <div class="container-fluid">
           <div class="header-body">
             <div class="row align-items-center py-4">
@@ -23,10 +22,8 @@
             <router-view></router-view>
           </div>
         </div>
-        <FooterPage></FooterPage>
       </div>
     </div>
-  </div>
 </template>
 <script>
 export default {

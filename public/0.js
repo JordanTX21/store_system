@@ -63,7 +63,7 @@ var render = function () {
       [
         _c(
           "ol",
-          { staticClass: "breadcrumb " },
+          { staticClass: "breadcrumb" },
           [
             _vm._m(0),
             _vm._v(" "),

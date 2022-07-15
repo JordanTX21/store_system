@@ -4,9 +4,6 @@
       <h3 class="mb-0">Registro del nuevo module</h3>
     </div>
     <div class="card-body">
-      <input type="file" @change="getImage" class="form-control text-uppercase">
-      <app-file-displayer v-model="fileManager" @delete="deleteImage"></app-file-displayer>
-      <hr>
       <validation-observer ref="validation-observer" v-slot="{ handleSubmit }">
         <form class="needs-validation" @submit.prevent="handleSubmit(checkForm)">
           <div class="form-row">
@@ -29,7 +26,6 @@
               </validation-provider>
             </div>
           </div>
-          <UbigeoSearch ref="ubigeo-search" @ubigeo="getUbigeo"></UbigeoSearch>
           <hr>
           <button class="btn btn-primary" type="submit" :disabled="is_send_data">{{ text_button }}</button>
         </form>
@@ -39,16 +35,10 @@
   </div>
 </template>
 <script>
-import AppFileDisplayer from '../../../components/AppFileDisplayer';
-import UbigeoSearch from '../../../components/UbigeoSearch.vue';
-import SearchEntity from "../../../components/SearchEntity.vue"
 
 export default {
 
   components: {
-    'search-entity': SearchEntity,
-    'app-file-displayer': AppFileDisplayer,
-    UbigeoSearch
   },
   data() {
     return {
@@ -58,9 +48,6 @@ export default {
       },
       text_button: 'Crear',
       is_send_data: false,
-      archivo: undefined,
-      fileManager: new FileManager(),
-      person: {}
     }
   },
   props: {
@@ -73,31 +60,6 @@ export default {
     },
   },
   methods: {
-    getEntity(entity){
-      this.person = entity
-      this.form.name = entity.name
-      this.form.email = entity.email
-      this.form.person_id = entity.id
-    },
-    deleteEntity(entity){
-      this.person = {}
-      this.form.name = ""
-      this.form.email = ""
-      this.form.person_id = ""
-    },
-    getUbigeo(ubigeo){
-      console.log(ubigeo)
-    },
-    setUbigeo(ubigeo){
-      this.$refs['ubigeo-search'].setUbigeo(ubigeo)
-    },
-    getImage(event) {
-      this.archivo = event.target.files[0];
-      this.fileManager = FileManager.fromFile((this.archivo));
-    },
-    deleteImage() {
-      this.fileManager = new FileManager()
-    },
     checkForm() {
       if (this.status === Constants.STATUS_EDIT) {
         this.sendEditData();
@@ -106,9 +68,8 @@ export default {
       }
     },
     resetForm(){
-      this.form={
-        value1: '',
-        value2: '',
+      for (const [index,item] of Object.entries(this.form)) {
+        item = "";
       }
       this.$refs['validation-observer'].reset();
     },
@@ -153,11 +114,6 @@ export default {
       if (this.status === 'EDIT') {
         this.form = {...this.item}
         this.text_button = 'Actualizar'
-        this.setUbigeo({
-          department: 'AMAZONAS',
-          province: 'CHACHAPOYAS',
-          district: 'CHACHAPOYAS'
-        })
       } else {
         if (this.$route.name === 'updatemodule' && this.item === undefined) {
           this.$router.push({name: 'newmodule'})

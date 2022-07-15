@@ -23,3 +23,17 @@ Auth::routes();
 Route::get('/home', function () {
     return redirect('/');
 });
+
+/** ABILITIES */
+Route::resource('abilities','PermissionController');
+
+/** FILES */
+Route::resource('file','FileController');
+Route::get('view-file/{folder}/{filename}','FileController@viewFile');
+Route::get('download-file/{folder}/{filename}','FileController@downloadFile');
+
+/** EXCEL */
+Route::resource('excel','ExcelController');
+
+/** USER */
+Route::resource('user','UserController');

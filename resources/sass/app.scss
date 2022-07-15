@@ -5,6 +5,32 @@
 @import 'variables';
 @import "~vue-multiselect/dist/vue-multiselect.min.css";
 @import "~sweetalert2/src/sweetalert2.scss";
+@import "~nprogress/nprogress.css";
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.is-invalid {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #fb6340;
+}
+
+#nprogress {
+    z-index: 9999999999;
+    position: fixed;
+}
+
+.multiselect__input {
+    background: transparent !important;
+}

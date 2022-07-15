@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Role;
+use App\Utils\WithUtils;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $roles = Role::with(WithUtils::withRole())->where('status',true)->get();
+        return view('home',[
+            "roles" => $roles
+        ]);
     }
 }

@@ -1,10 +1,9 @@
 <template>
   <div class="wrapper">
-    <AppMenu></AppMenu>
+    <AppMenu :userLogued="userLogued" :appName="appName"></AppMenu>
     <div id="content">
-      <NavApp :userLogued="userLogued"></NavApp>
-      <router-view :userLogued="userLogued"></router-view>
-      <FooterPage></FooterPage>
+      <NavApp :userLogued="userLogued" :appName="appName"></NavApp>
+      <router-view :userLogued="userLogued" :appName="appName"></router-view>
     </div>
     <!-- Dark Overlay element -->
     <div class="overlay"></div>
@@ -24,10 +23,16 @@ export default {
   },
   data() {
     return {
-      userLogued: JSON.parse(this.$attrs.userlogued),
+      userLogued: this.$attrs.userlogued,
+      roles: this.$attrs.roles,
+      appName: this.$attrs.appname,
     }
   },
-  mounted() { }
+  mounted() {
+    Vue.prototype.$appName = this.$attrs.appname;
+    Vue.prototype.$userlogued = this.$attrs.userlogued;
+    Vue.prototype.$roles = this.$attrs.roles;
+   }
 }
 </script>
 <style scoped>

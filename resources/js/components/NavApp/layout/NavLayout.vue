@@ -9,7 +9,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="navbar-brand d-inline-block text-left" href="#">Letona Store</a>
+                        <a class="navbar-brand d-inline-block text-left" href="#">{{ appName }}</a>
                     </li>
                 </ul>
 
@@ -37,6 +37,10 @@ export default {
     props: {
         userLogued: {
             type: Object,
+        },
+        appName: {
+            type: String,
+            default: '',
         },
     },
     mounted() {

@@ -6,5 +6,5 @@
         {{ session('status') }}
     </div>
 @endif
-<router-view userLogued="{{ Auth::user() }}"></router-view>
+<router-view :userLogued="{{ auth()->user()->load(['roles','roles.permissions']) }}" appName="{{ config('app.name', 'Laravel') }}" :roles="{{ $roles }}"></router-view>
 @endsection

@@ -4,7 +4,7 @@ import Meta from 'vue-meta'
 import NProgress from 'nprogress'
 
 import homeRouter from '../modules/home/routes/index.js'
-//import userRouter from '../modules/user/routes/index.js'
+import userRouter from '../modules/user/routes/index.js'
 
 Vue.use(Meta)
 Vue.use(Router)
@@ -18,6 +18,10 @@ const routes = [
             {
                 path: '/',
                 ...homeRouter
+            },
+            {
+                path: '/user',
+                ...userRouter
             },
         ],
         props: true
