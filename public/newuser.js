@@ -98,12 +98,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     multiselect: vue_multiselect__WEBPACK_IMPORTED_MODULE_0__["Multiselect"],
     Button: function Button() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../../../components/Button.vue */ "./resources/js/components/Button.vue"));
+      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../../../components/Button.vue */ "./resources/js/components/Button.vue"));
     }
   },
   data: function data() {
@@ -171,17 +175,34 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
                       while (1) {
                         switch (_context.prev = _context.next) {
                           case 0:
-                            if (result.status === 200) {
-                              Alerts.showUpdatedMessage();
-
-                              _this.resetForm();
-
-                              _this.$router.push({
-                                name: 'listuser'
-                              });
+                            if (!(result.status === 200)) {
+                              _context.next = 9;
+                              break;
                             }
 
-                          case 1:
+                            if (result.data.success) {
+                              _context.next = 5;
+                              break;
+                            }
+
+                            _context.next = 4;
+                            return Alerts.showToastErrorMessage(result.data.message);
+
+                          case 4:
+                            return _context.abrupt("return");
+
+                          case 5:
+                            _context.next = 7;
+                            return Alerts.showUpdatedMessage();
+
+                          case 7:
+                            _this.resetForm();
+
+                            _this.$router.push({
+                              name: 'listuser'
+                            });
+
+                          case 9:
                           case "end":
                             return _context.stop();
                         }
@@ -239,34 +260,54 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
               case 5:
                 result = _context3.sent;
 
-                if (result.status === 200) {
-                  Alerts.showCreatedMessage();
-
-                  _this2.resetForm();
+                if (!(result.status === 200)) {
+                  _context3.next = 13;
+                  break;
                 }
 
-                _context3.next = 12;
+                if (result.data.success) {
+                  _context3.next = 11;
+                  break;
+                }
+
+                _context3.next = 10;
+                return Alerts.showToastErrorMessage(result.data.message);
+
+              case 10:
+                return _context3.abrupt("return");
+
+              case 11:
+                Alerts.showCreatedMessage();
+
+                _this2.resetForm();
+
+              case 13:
+                _context3.next = 18;
                 break;
 
-              case 9:
-                _context3.prev = 9;
+              case 15:
+                _context3.prev = 15;
                 _context3.t0 = _context3["catch"](1);
                 Alerts.showErrorMessage();
 
-              case 12:
+              case 18:
                 _this2.is_send_data = false;
 
-              case 13:
+              case 19:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[1, 9]]);
+        }, _callee3, null, [[1, 15]]);
       }))();
     },
     validateStatus: function validateStatus() {
       if (this.status === 'EDIT') {
-        this.form = _objectSpread({}, this.item);
+        this.form.id = this.item.id;
+        this.form.name = this.item.name;
+        this.form.email = this.item.email;
+        this.form.role = this.item.roles[0].id;
+        this.role = this.item.roles[0];
         this.text_button = 'Actualizar';
       } else {
         if (this.$route.name === 'updateuser' && this.item === undefined) {
@@ -345,6 +386,7 @@ var render = function () {
                     "form",
                     {
                       staticClass: "needs-validation",
+                      attrs: { autocomplete: "nope" },
                       on: {
                         submit: function ($event) {
                           $event.preventDefault()
@@ -359,7 +401,10 @@ var render = function () {
                           { staticClass: "col-md-4 mb-2" },
                           [
                             _c("validation-provider", {
-                              attrs: { name: "Nombre", rules: "required" },
+                              attrs: {
+                                name: "Nombre",
+                                rules: "required|min:4",
+                              },
                               scopedSlots: _vm._u(
                                 [
                                   {
@@ -371,7 +416,7 @@ var render = function () {
                                           "label",
                                           {
                                             staticClass: "form-control-label",
-                                            attrs: { for: "input-1" },
+                                            attrs: { for: "input-name" },
                                           },
                                           [_vm._v("Nombre")]
                                         ),
@@ -388,7 +433,7 @@ var render = function () {
                                           staticClass: "form-control",
                                           attrs: {
                                             type: "text",
-                                            id: "input-1",
+                                            id: "input-name",
                                             placeholder: "Usuario",
                                           },
                                           domProps: { value: _vm.form.name },
@@ -428,7 +473,10 @@ var render = function () {
                           { staticClass: "col-md-4 mb-2" },
                           [
                             _c("validation-provider", {
-                              attrs: { name: "Correo", rules: "required" },
+                              attrs: {
+                                name: "Correo",
+                                rules: "required|email",
+                              },
                               scopedSlots: _vm._u(
                                 [
                                   {
@@ -440,7 +488,7 @@ var render = function () {
                                           "label",
                                           {
                                             staticClass: "form-control-label",
-                                            attrs: { for: "input-2" },
+                                            attrs: { for: "input-email" },
                                           },
                                           [_vm._v("Correo")]
                                         ),
@@ -457,7 +505,7 @@ var render = function () {
                                           staticClass: "form-control",
                                           attrs: {
                                             type: "email",
-                                            id: "input-2",
+                                            id: "input-email",
                                             placeholder: "example@example.com",
                                           },
                                           domProps: { value: _vm.form.email },
@@ -497,7 +545,10 @@ var render = function () {
                           { staticClass: "col-md-4 mb-2" },
                           [
                             _c("validation-provider", {
-                              attrs: { name: "Contraseña", rules: "required" },
+                              attrs: {
+                                name: "Contraseña",
+                                rules: _vm.status !== "EDIT" ? "required" : "",
+                              },
                               scopedSlots: _vm._u(
                                 [
                                   {
@@ -509,7 +560,7 @@ var render = function () {
                                           "label",
                                           {
                                             staticClass: "form-control-label",
-                                            attrs: { for: "input-2" },
+                                            attrs: { for: "input-password" },
                                           },
                                           [_vm._v("Contraseña")]
                                         ),
@@ -526,7 +577,7 @@ var render = function () {
                                           staticClass: "form-control",
                                           attrs: {
                                             type: "password",
-                                            id: "input-2",
+                                            id: "input-password",
                                             placeholder: "*********",
                                           },
                                           domProps: {
@@ -570,7 +621,10 @@ var render = function () {
                             _c("validation-provider", {
                               attrs: {
                                 name: "Repetir Contraseña",
-                                rules: "required",
+                                rules:
+                                  _vm.status !== "EDIT"
+                                    ? "required|confirmed:Contraseña"
+                                    : "",
                               },
                               scopedSlots: _vm._u(
                                 [
@@ -583,7 +637,9 @@ var render = function () {
                                           "label",
                                           {
                                             staticClass: "form-control-label",
-                                            attrs: { for: "input-2" },
+                                            attrs: {
+                                              for: "input-repeat_password",
+                                            },
                                           },
                                           [_vm._v("Repetir Contraseña")]
                                         ),
@@ -601,7 +657,7 @@ var render = function () {
                                           staticClass: "form-control",
                                           attrs: {
                                             type: "password",
-                                            id: "input-2",
+                                            id: "input-repeat_password",
                                             placeholder: "*********",
                                           },
                                           domProps: {
@@ -643,36 +699,72 @@ var render = function () {
                             "div",
                             { staticClass: "form-group" },
                             [
-                              _c(
-                                "label",
-                                { staticClass: "form-control-label" },
-                                [_vm._v("Rol")]
-                              ),
-                              _vm._v(" "),
-                              _c("multiselect", {
-                                attrs: {
-                                  options: _vm.roles,
-                                  placeholder: "TODOS",
-                                  "track-by": "name",
-                                  "select-label": "",
-                                  label: "name",
-                                  "deselect-label": "",
-                                },
-                                on: { select: _vm.selectRole },
+                              _c("validation-provider", {
+                                attrs: { name: "Rol", rules: "required" },
                                 scopedSlots: _vm._u(
                                   [
                                     {
-                                      key: "singleLabel",
+                                      key: "default",
                                       fn: function (ref) {
-                                        var option = ref.option
+                                        var errors = ref.errors
                                         return [
                                           _c(
-                                            "span",
+                                            "label",
                                             {
-                                              staticClass:
-                                                "badge badge-pill badge-success",
+                                              staticClass: "form-control-label",
                                             },
-                                            [_vm._v(_vm._s(option.name))]
+                                            [_vm._v("Rol")]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("multiselect", {
+                                            attrs: {
+                                              options: _vm.roles,
+                                              placeholder: "TODOS",
+                                              "track-by": "name",
+                                              "select-label": "",
+                                              label: "name",
+                                              "deselect-label": "",
+                                            },
+                                            on: { select: _vm.selectRole },
+                                            scopedSlots: _vm._u(
+                                              [
+                                                {
+                                                  key: "singleLabel",
+                                                  fn: function (ref) {
+                                                    var option = ref.option
+                                                    return [
+                                                      _c(
+                                                        "span",
+                                                        {
+                                                          staticClass:
+                                                            "badge badge-pill badge-success",
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            _vm._s(option.name)
+                                                          ),
+                                                        ]
+                                                      ),
+                                                    ]
+                                                  },
+                                                },
+                                              ],
+                                              null,
+                                              true
+                                            ),
+                                            model: {
+                                              value: _vm.role,
+                                              callback: function ($$v) {
+                                                _vm.role = $$v
+                                              },
+                                              expression: "role",
+                                            },
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "span",
+                                            { staticClass: "is-invalid" },
+                                            [_vm._v(_vm._s(errors[0]))]
                                           ),
                                         ]
                                       },
@@ -681,13 +773,6 @@ var render = function () {
                                   null,
                                   true
                                 ),
-                                model: {
-                                  value: _vm.role,
-                                  callback: function ($$v) {
-                                    _vm.role = $$v
-                                  },
-                                  expression: "role",
-                                },
                               }),
                             ],
                             1

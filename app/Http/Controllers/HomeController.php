@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Provider;
 use App\Role;
 use App\Utils\WithUtils;
 
@@ -26,8 +27,10 @@ class HomeController extends Controller
     public function index()
     {
         $roles = Role::with(WithUtils::withRole())->where('status',true)->get();
+        $providers = Provider::where('status',true)->get();
         return view('home',[
-            "roles" => $roles
+            "roles" => $roles,
+            "providers" => $providers
         ]);
     }
 }

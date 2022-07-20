@@ -7,10 +7,6 @@
       <validation-observer ref="validation-observer" v-slot="{ handleSubmit }">
         <form class="needs-validation" @submit.prevent="handleSubmit(checkForm)">
           <div class="form-row">
-            <div class="col-md-12 mb-2">
-                <label class="form-control-label" >Persona</label>
-                <search-entity ref="search-entity" :validate="true" @entity="getEntity" @deleteEntity="deleteEntity"></search-entity>
-            </div>
             <div class="col-md-4 mb-2">
               <validation-provider name="Nombre" rules="required" v-slot="{ errors }">
                 <label class="form-control-label" for="input-1">Input 1</label>
@@ -27,7 +23,8 @@
             </div>
           </div>
           <hr>
-          <button class="btn btn-primary" type="submit" :disabled="is_send_data">{{ text_button }}</button>
+          <Button classname="btn btn-primary" type="submit" icon="" :disabled="is_send_data"
+            :title="text_button"></Button>
         </form>
       </validation-observer>
     </div>
@@ -39,6 +36,7 @@
 export default {
 
   components: {
+    Button: () => import('../../../components/Button.vue'),
   },
   data() {
     return {
@@ -67,8 +65,8 @@ export default {
         this.sendCreateData();
       }
     },
-    resetForm(){
-      for (const [index,item] of Object.entries(this.form)) {
+    resetForm() {
+      for (const [index, item] of Object.entries(this.form)) {
         item = "";
       }
       this.$refs['validation-observer'].reset();
@@ -76,17 +74,22 @@ export default {
     async sendEditData() {
       this.is_send_data = true
       try {
-        const body = {...this.form}
+        const body = { ...this.form }
 
-        const result = await axios.put(`/url-module/${body.id}`, {...body}).then( async (result)=>{
-        if (result.status === 200) {
-          Alerts.showUpdatedMessage()
-          this.resetForm()
+        const result = await axios.put(`/url-module/${body.id}`, { ...body }).then(async (result) => {
+          if (result.status === 200) {
+            if (!result.data.success) {
+              await Alerts.showToastErrorMessage(result.data.message);
+              return;
+            }
+            await Alerts.showUpdatedMessage()
+            this.resetForm()
 
-          this.$router.push({name: 'listmodule'})
-        }}).catch( (err) => {
-          if(err.response.data.code == "Error"){
-            Alerts.showErrorMessageWithMessage(err.response.data.Message);
+            this.$router.push({ name: 'listmodule' })
+          }
+        }).catch((err) => {
+          if (err.response.data.code == "Error") {
+            Alerts.showErrorMessageWithMessage(err.response.data.message);
           }
           this.is_search = false;
         });
@@ -98,10 +101,14 @@ export default {
     async sendCreateData() {
       this.is_send_data = true
       try {
-        const body = {...this.form}
+        const body = { ...this.form }
 
-        const result = await axios.post('url-module', {...body});
+        const result = await axios.post('url-module', { ...body });
         if (result.status === 200) {
+          if (!result.data.success) {
+            await Alerts.showToastErrorMessage(result.data.message);
+            return;
+          }
           Alerts.showCreatedMessage()
           this.resetForm()
         }
@@ -112,11 +119,11 @@ export default {
     },
     validateStatus() {
       if (this.status === 'EDIT') {
-        this.form = {...this.item}
+        this.form = { ...this.item }
         this.text_button = 'Actualizar'
       } else {
         if (this.$route.name === 'updatemodule' && this.item === undefined) {
-          this.$router.push({name: 'newmodule'})
+          this.$router.push({ name: 'newmodule' })
         }
       }
     }
@@ -128,7 +135,7 @@ export default {
   },
   watch: {
     status: function (status) {
-      if (status === Constants.STATUS_CREATE && this.text_button === "Actualizar" ){
+      if (status === Constants.STATUS_CREATE && this.text_button === "Actualizar") {
         location.reload()
       }
     },

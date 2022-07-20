@@ -30,8 +30,8 @@
           </div>
           <div class="col-md-3 mb-2">
             <div class="form-group">
-              <label class="form-control-label text-white" >Buscar</label>
-              <button class="form-control btn btn-primary" type="submit" :disabled="is_search">Buscar</button>
+              <label class="form-control-label d-block text-white" >Buscar</label>
+              <Button classname="btn btn-default" type="submit" :disabled="is_search"></Button>
             </div>
           </div>
         </div>
@@ -46,7 +46,8 @@ import {Multiselect} from 'vue-multiselect';
 export default {
   components: {
     Datepicker,
-    multiselect: Multiselect
+    multiselect: Multiselect,
+    Button: () => import('../../../components/Button.vue'),
   },
   data(){
     return {

@@ -5,6 +5,11 @@ import NProgress from 'nprogress'
 
 import homeRouter from '../modules/home/routes/index.js'
 import userRouter from '../modules/user/routes/index.js'
+import roleRouter from '../modules/role/routes/index.js'
+import providerRouter from '../modules/provider/routes/index.js'
+import productRouter from '../modules/product/routes/index.js'
+import solicitudeRouter from '../modules/solicitude/routes/index.js'
+import proformaRouter from '../modules/proforma/routes/index.js'
 
 Vue.use(Meta)
 Vue.use(Router)
@@ -22,6 +27,26 @@ const routes = [
             {
                 path: '/user',
                 ...userRouter
+            },
+            {
+                path: '/role',
+                ...roleRouter
+            },
+            {
+                path: '/provider',
+                ...providerRouter
+            },
+            {
+                path: '/product',
+                ...productRouter
+            },
+            {
+                path: '/solicitude',
+                ...solicitudeRouter
+            },
+            {
+                path: '/proforma',
+                ...proformaRouter
             },
         ],
         props: true

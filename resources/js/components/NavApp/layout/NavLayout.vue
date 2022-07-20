@@ -9,7 +9,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="navbar-brand d-inline-block text-left" href="#">{{ appName }}</a>
+                        <router-link :to="{ name: 'homelayout' }" class="navbar-brand d-inline-block text-left">
+                            {{ appName }}
+                        </router-link>
                     </li>
                 </ul>
 

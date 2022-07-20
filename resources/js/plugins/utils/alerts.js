@@ -3,11 +3,11 @@ import Swal from 'sweetalert2';
 export const DELETED_MESSAGE = 'Eliminado correctamente';
 export const UPDATED_MESSAGE = 'Actualizado correctamente';
 export const CREATED_MESSAGE = 'Creado correctamente';
-export const LOADED_MESSAGE  = 'Cargado correctamente';
-export const ERROR_MESSAGE   = 'Ocurrió un error, intenta de nuevo';
+export const LOADED_MESSAGE = 'Cargado correctamente';
+export const ERROR_MESSAGE = 'Ocurrió un error, intenta de nuevo';
 
 export const alertLoading = (text) => {
-    return    Swal.fire({
+    return Swal.fire({
         title: 'Espere un momento..!',
         html: text,
         allowOutsideClick: false,
@@ -133,7 +133,7 @@ export const showConfirmDisableMessage = () => {
     });
 }
 
-export const showConfirmMessage = (title,html,type) => {
+export const showConfirmMessage = (title, html, type) => {
     return Swal.fire({
         title: title,
         html: html,
@@ -155,7 +155,7 @@ export const showConfirmMessage = (title,html,type) => {
     });*/
 }
 
-export const showToastMessage = (title,position, time = 1500) => {
+export const showToastMessage = (title, position, time = 1500) => {
     const Toast = Swal.mixin({
         toast: true,
         position: position,
@@ -172,7 +172,7 @@ export const showToastMessage = (title,position, time = 1500) => {
     });
 }
 
-export const showToastErrorMessage = (title,position, time = 1500) => {
+export const showToastErrorMessage = (title, position, time = 1500) => {
     const Toast = Swal.mixin({
         toast: true,
         position: position,
@@ -189,7 +189,7 @@ export const showToastErrorMessage = (title,position, time = 1500) => {
     });
 }
 
-export const showSeatBlock = ()=> {
+export const showSeatBlock = () => {
     return Swal.fire({
 
         title: '',
@@ -204,49 +204,49 @@ export const showSeatBlock = ()=> {
         cancelButtonText: 'Cancelar'
     });
 }
-export const showSeatBook = ()=> {
+export const showSeatBook = () => {
     return Swal.fire(
         '',
         'El asiento fue reservado',
         'warning'
     );
 }
-export const showSeatSell = ()=> {
+export const showSeatSell = () => {
     return Swal.fire(
         '',
         'El asiento fue vendido',
         'error'
     );
 }
-export const showSelectModalidad = ()=> {
+export const showSelectModalidad = () => {
     return Swal.fire(
         '',
         'Seleccione la modalidad de compra',
         'warning'
     );
 }
-export const showUniqueReserveSeat = ()=> {
+export const showUniqueReserveSeat = () => {
     return Swal.fire(
         '',
         'Asiento reservado',
         'success'
     );
 }
-export const showMultipleReserveSeat = ()=> {
+export const showMultipleReserveSeat = () => {
     return Swal.fire(
         '',
         'Asientos reservados',
         'success'
     );
 }
-export const showNoReservedSeats = ()=> {
+export const showNoReservedSeats = () => {
     return Swal.fire(
         '',
         'No hay asientos reservados',
         'error'
     );
 }
-export const showNoTickets = ()=> {
+export const showNoTickets = () => {
     return Swal.fire(
         '',
         'No hay boletos',
@@ -307,7 +307,7 @@ export const showSuccessReservation = () => {
         'success'
     );
 }
-export const showInvalidPassword = ()=> {
+export const showInvalidPassword = () => {
     return Swal.fire(
         '',
         'Contraseña incorrecta',
@@ -321,7 +321,7 @@ export const showSuccessChangePrice = () => {
         'success'
     );
 }
-export const showErrorCapacity = ()=> {
+export const showErrorCapacity = () => {
     return Swal.fire(
         '',
         'Se excedió la cantidad de asientos disponibles',
@@ -359,9 +359,9 @@ export const confirmGetOuthDeparturePage = () => {
 
 
 /*added 21/05/2020 by Fabrizio*/
-export const showWarningChangeBus = (listNotifications)=> {
+export const showWarningChangeBus = (listNotifications) => {
     let text = ''
-    listNotifications.forEach((notification)=>{
+    listNotifications.forEach((notification) => {
         text += `- ${notification} <br>`
     })
     return Swal.fire(
@@ -372,14 +372,14 @@ export const showWarningChangeBus = (listNotifications)=> {
 }
 
 // added 28/05
-export const showWarningSeat = (text)=> {
+export const showWarningSeat = (text) => {
     return Swal.fire(
         '',
         `${text}`,
         'warning'
     );
 }
-export const showChangeSeatSuccessful = ()=> {
+export const showChangeSeatSuccessful = () => {
     return Swal.fire(
         '',
         'Se realizo el traslado',
@@ -407,4 +407,37 @@ export const showSuccessChangeBus = () => {
         'Se realizo el cambio de bus de manera correcta',
         'success'
     );
+}
+
+export const showAddProductForm = async (item) => {
+    const { value: formValues } = await Swal.fire({
+        title: 'Ingrese la Cantidad',
+        icon: 'info',
+        html:
+            '<div style="max-width:90%">' +
+            '<div class="form-group row">' +
+            '<label for="swal-input-quantity" class="col-sm-4 col-form-label">Cantidad</label>' +
+            '<div class="col-sm-6">' +
+            '<input id="swal-input-quantity" class="form-control" type="number">' +
+            '</div>' +
+            '</div>' +
+            '<div class="form-group row">' +
+            '<label for="swal-input-price" class="col-sm-4 col-form-label">Precio</label>' +
+            '<div class="col-sm-6">' +
+            '<input id="swal-input-price" class="form-control" type="number" value="'+item.purchase_price+'" readonly>' +
+            '</div>' +
+            '</div>' +
+            '</div>',
+        focusConfirm: false,
+        showCloseButton: true,
+        showCancelButton: true,
+        preConfirm: () => {
+            return [
+                document.getElementById('swal-input-quantity').value,
+                document.getElementById('swal-input-price').value
+            ]
+        }
+    })
+
+    return formValues;
 }

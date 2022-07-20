@@ -21,7 +21,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr role="row" class="odd" v-for="(item,index) in list" :key="`row_${index}`">
+            <tr role="row" class="odd" v-for="(item,index) in listAll" :key="`row_${index}`">
               <td>{{ item.name }}</td>
               <td>{{ item.email }}</td>
               <td>{{ item.roles[0].name }}</td>
@@ -57,7 +57,6 @@ export default {
   },
   data(){
     return {
-      list: [],
       listFiltered: [],
       cantPages: [],
       count: 0,
@@ -66,13 +65,18 @@ export default {
   props:{
     listAll: {
       type:Array
-    }
+    },
+    is_search: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
+    filterList(listAll,count){
+      this.$refs['pagination'].filterList(listAll,count)
+    },
     setPagination(data) {
-      this.list = data.list
-      this.cantPages = data.cantPages
-      this.listFiltered = data.listFiltered
+      this.$emit("paginate", data)
     },
     editItem(item){
       this.$router.push({name:'updateuser',params:{ status: 'EDIT', item: item }})
@@ -94,19 +98,6 @@ export default {
           Alerts.showErrorMessage();
         }
       }
-    },
-    sendPaginate(index) {
-      for(let itemCant of this.cantPages){
-        itemCant.class=""
-      }
-      item.class='active'
-      this.list = this.listFiltered[item.pagination-1]
-      this.count = this.list.length
-    }
-  },
-  watch:{
-    'listAll': function (list) {
-      this.$refs.pagination.filterList(list);
     }
   }
 }

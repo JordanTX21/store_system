@@ -4,8 +4,9 @@
       <h3 class="mb-0">Lista de module</h3>
     </div>
     <div class="card-body">
-      <FiltersForm :is_search="is_search" @search="getSearch"></FiltersForm>
-      <TableList :listAll="list" @deleteItem="deleteItem" ></TableList>
+      <FiltersForm ref="filters-form" :is_search="is_search" @search="getSearch"></FiltersForm>
+      <TableList ref="table" :listAll="list" :is_search="is_search" @deleteItem="deleteItem"
+        @paginate="paginateContent"></TableList>
       <hr>
     </div>
   </div>
@@ -23,35 +24,38 @@ export default {
   data() {
     return {
       list: [],
-      listFiltered: [],
-      cantPages: [],
       paginate: 0,
-      count: 0,
+      length: 10,
       is_search: false
     }
   },
   methods: {
+    paginateContent(paginate) {
+      this.paginate = paginate * this.length;
+      this.getSearch();
+    },
     async getSearch(search) {
       this.is_search = true;
       let list = [];
-      let body = {...search}
+      let body = { ...search }
       /** USAR EN CASO SE HAGA LA PAGINACION EN BACKEND*/
+      //body.length = this.length;
       //body.start = this.paginate
 
-      let url = 'ruta-module'
+      let url = 'search-module'
 
       try {
-        const result = await axios.get(url);
+        const result = await axios.post(url,body);
         if (result.status === 200) {
           const resultData = result.data;
-          if (resultData.code) {
-            Alerts.showToastMessage(resultData.Message, 'center');
+          if (resultData.success) {
+            Alerts.showToastMessage(resultData.message, 'center');
             list = resultData.data;
 
             /** USAR EN CASO SE HAGA LA PAGINACION EN BACKEND*/
-            //this.count = resultData.count
-          }else{
-            Alerts.showToastErrorMessage(resultData.Message,'center')
+            //this.$refs['table'].filterList(list, resultData["count"])
+          } else {
+            Alerts.showToastErrorMessage(resultData.message, 'center')
           }
           this.is_search = false;
         }
@@ -62,7 +66,7 @@ export default {
       this.list = list;
 
     },
-    deleteItem(item){
+    deleteItem(item) {
       this.list = this.list.filter((myitem) => myitem !== item)
     }
   }

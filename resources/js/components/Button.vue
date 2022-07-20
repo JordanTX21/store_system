@@ -35,8 +35,8 @@ export default {
         },
     },
     methods: {
-        onClick() {
-            this.$emit('click');
+        onClick(event) {
+            this.$emit('click',event);
         }
     },
     mounted() {

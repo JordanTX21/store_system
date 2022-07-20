@@ -37,3 +37,19 @@ Route::resource('excel','ExcelController');
 
 /** USER */
 Route::resource('user','UserController');
+Route::post('search-user','UserController@search');
+/** ROLE */
+Route::resource('role','RoleController');
+Route::post('search-role','RoleController@search');
+/** PROVIDER */
+Route::resource('provider','ProviderController');
+Route::post('search-provider','ProviderController@search');
+/** PRODUCT */
+Route::resource('product','ProductController');
+Route::post('search-product','ProductController@search');
+/** SOLICITUDE */
+Route::resource('solicitude','SolicitudeController');
+Route::post('search-solicitude','SolicitudeController@search');
+/** PROFORMA */
+Route::resource('proforma','ProformaController');
+Route::post('search-proforma','ProformaController@search');

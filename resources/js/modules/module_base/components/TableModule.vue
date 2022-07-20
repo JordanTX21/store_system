@@ -21,7 +21,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr role="row" class="odd" v-for="(item,index) in list" :key="`row_${index}`">
+            <tr role="row" class="odd" v-for="(item,index) in listAll" :key="`row_${index}`">
               <td>{{ item.val1 }}</td>
               <td>{{ item.val2 }}</td>
               <td>{{ item.val3 }}</td>
@@ -45,7 +45,7 @@
           </table>
         </div>
       </div>
-      <pagination ref="pagination" :listAll="listAll" @paginate="setPagination"></pagination>
+      <pagination ref="pagination" :listAll="listAll" :is_search="is_search" @paginate="setPagination"></pagination>
     </div>
   </div>
 </template>
@@ -57,7 +57,6 @@ export default {
   },
   data(){
     return {
-      list: [],
       listFiltered: [],
       cantPages: [],
       count: 0,
@@ -66,7 +65,11 @@ export default {
   props:{
     listAll: {
       type:Array
-    }
+    },
+    is_search: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     zfill(number, width) {
@@ -88,10 +91,11 @@ export default {
         }
       }
     },
+    filterList(listAll,count){
+      this.$refs['pagination'].filterList(listAll,count)
+    },
     setPagination(data) {
-      this.list = data.list
-      this.cantPages = data.cantPages
-      this.listFiltered = data.listFiltered
+      this.$emit("paginate", data)
     },
     editItem(item){
       this.$router.push({name:'updatemodule',params:{ status: 'EDIT', item: item }})
@@ -114,20 +118,7 @@ export default {
         }
       }
     },
-    sendPaginate(index) {
-      for(let itemCant of this.cantPages){
-        itemCant.class=""
-      }
-      item.class='active'
-      this.list = this.listFiltered[item.pagination-1]
-      this.count = this.list.length
-    }
   },
-  watch:{
-    'listAll': function (list) {
-      this.$refs.pagination.filterList(list);
-    }
-  }
 }
 </script>
 

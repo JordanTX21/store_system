@@ -1,9 +1,9 @@
 <template>
   <div class="wrapper">
-    <AppMenu :userLogued="userLogued" :appName="appName"></AppMenu>
+    <AppMenu :userLogued="userLogged" :appName="appName"></AppMenu>
     <div id="content">
-      <NavApp :userLogued="userLogued" :appName="appName"></NavApp>
-      <router-view :userLogued="userLogued" :appName="appName"></router-view>
+      <NavApp :userLogued="userLogged" :appName="appName"></NavApp>
+      <router-view :userLogued="userLogged" :appName="appName"></router-view>
     </div>
     <!-- Dark Overlay element -->
     <div class="overlay"></div>
@@ -23,15 +23,17 @@ export default {
   },
   data() {
     return {
-      userLogued: this.$attrs.userlogued,
+      userLogged: this.$attrs.userlogged,
       roles: this.$attrs.roles,
       appName: this.$attrs.appname,
+      providers: this.$attrs.providers,
     }
   },
-  mounted() {
+  async mounted() {
     Vue.prototype.$appName = this.$attrs.appname;
-    Vue.prototype.$userlogued = this.$attrs.userlogued;
+    Vue.prototype.$userlogged = this.$attrs.userlogged;
     Vue.prototype.$roles = this.$attrs.roles;
+    Vue.prototype.$providers = this.$attrs.providers;
    }
 }
 </script>

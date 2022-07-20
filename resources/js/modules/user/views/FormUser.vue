@@ -5,48 +5,52 @@
     </div>
     <div class="card-body">
       <validation-observer ref="validation-observer" v-slot="{ handleSubmit }">
-        <form class="needs-validation" @submit.prevent="handleSubmit(checkForm)">
+        <form class="needs-validation" @submit.prevent="handleSubmit(checkForm)" autocomplete="nope">
           <div class="form-row">
             <div class="col-md-4 mb-2">
-              <validation-provider name="Nombre" rules="required" v-slot="{ errors }">
-                <label class="form-control-label" for="input-1">Nombre</label>
-                <input type="text" v-model="form.name" class="form-control" id="input-1" placeholder="Usuario">
+              <validation-provider name="Nombre" rules="required|min:4" v-slot="{ errors }">
+                <label class="form-control-label" for="input-name">Nombre</label>
+                <input type="text" v-model="form.name" class="form-control" id="input-name" placeholder="Usuario">
                 <span class="is-invalid">{{ errors[0] }}</span>
               </validation-provider>
             </div>
             <div class="col-md-4 mb-2">
-              <validation-provider name="Correo" rules="required" v-slot="{ errors }">
-                <label class="form-control-label" for="input-2">Correo</label>
-                <input type="email" v-model="form.email" class="form-control" id="input-2"
+              <validation-provider name="Correo" rules="required|email" v-slot="{ errors }">
+                <label class="form-control-label" for="input-email">Correo</label>
+                <input type="email" v-model="form.email" class="form-control" id="input-email"
                   placeholder="example@example.com">
                 <span class="is-invalid">{{ errors[0] }}</span>
               </validation-provider>
             </div>
             <div class="col-md-4 mb-2">
-              <validation-provider name="Contraseña" rules="required" v-slot="{ errors }">
-                <label class="form-control-label" for="input-2">Contraseña</label>
-                <input type="password" v-model="form.password" class="form-control" id="input-2" placeholder="*********">
+              <validation-provider name="Contraseña" :rules="(status !== 'EDIT') ? 'required' : ''" v-slot="{ errors }">
+                <label class="form-control-label" for="input-password">Contraseña</label>
+                <input type="password" v-model="form.password" class="form-control" id="input-password"
+                  placeholder="*********">
                 <span class="is-invalid">{{ errors[0] }}</span>
               </validation-provider>
             </div>
             <div class="col-md-4 mb-2">
-              <validation-provider name="Repetir Contraseña" rules="required" v-slot="{ errors }">
-                <label class="form-control-label" for="input-2">Repetir Contraseña</label>
-                <input type="password" v-model="form.repeat_password" class="form-control" id="input-2"
+              <validation-provider name="Repetir Contraseña"
+                :rules="(status !== 'EDIT') ? 'required|confirmed:Contraseña' : ''" v-slot="{ errors }">
+                <label class="form-control-label" for="input-repeat_password">Repetir Contraseña</label>
+                <input type="password" v-model="form.repeat_password" class="form-control" id="input-repeat_password"
                   placeholder="*********">
                 <span class="is-invalid">{{ errors[0] }}</span>
               </validation-provider>
             </div>
             <div class="col-md-3 mb-2">
               <div class="form-group">
-                <label class="form-control-label">Rol</label>
-                <multiselect v-model="role" :options="roles" placeholder="TODOS"
-                  track-by="name" select-label="" label="name" @select="selectRole"
-                  deselect-label="">
-                  <template slot="singleLabel" slot-scope="{ option }"><span class="badge badge-pill badge-success">{{
-                      option.name
-                  }}</span></template>
-                </multiselect>
+                <validation-provider name="Rol" rules="required" v-slot="{ errors }">
+                  <label class="form-control-label">Rol</label>
+                  <multiselect v-model="role" :options="roles" placeholder="TODOS" track-by="name" select-label=""
+                    label="name" @select="selectRole" deselect-label="">
+                    <template slot="singleLabel" slot-scope="{ option }"><span class="badge badge-pill badge-success">{{
+                        option.name
+                    }}</span></template>
+                  </multiselect>
+                  <span class="is-invalid">{{ errors[0] }}</span>
+                </validation-provider>
               </div>
             </div>
           </div>
@@ -104,7 +108,7 @@ export default {
       }
     },
     resetForm() {
-      for (const [index,item] of Object.entries(this.form)) {
+      for (const [index, item] of Object.entries(this.form)) {
         item = "";
       }
       this.$refs['validation-observer'].reset();
@@ -116,7 +120,12 @@ export default {
 
         const result = await axios.put(`/user/${body.id}`, { ...body }).then(async (result) => {
           if (result.status === 200) {
-            Alerts.showUpdatedMessage()
+            if (!result.data.success) {
+              await Alerts.showToastErrorMessage(result.data.message);
+              return;
+            }
+
+            await Alerts.showUpdatedMessage()
             this.resetForm()
 
             this.$router.push({ name: 'listuser' })
@@ -139,6 +148,10 @@ export default {
 
         const result = await axios.post('user', { ...body });
         if (result.status === 200) {
+          if (!result.data.success) {
+            await Alerts.showToastErrorMessage(result.data.message);
+            return;
+          }
           Alerts.showCreatedMessage()
           this.resetForm()
         }
@@ -149,7 +162,11 @@ export default {
     },
     validateStatus() {
       if (this.status === 'EDIT') {
-        this.form = { ...this.item }
+        this.form.id = this.item.id;
+        this.form.name = this.item.name;
+        this.form.email = this.item.email;
+        this.form.role = this.item.roles[0].id;
+        this.role = this.item.roles[0];
         this.text_button = 'Actualizar'
       } else {
         if (this.$route.name === 'updateuser' && this.item === undefined) {

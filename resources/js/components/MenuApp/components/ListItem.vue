@@ -8,7 +8,7 @@
         <div class="collapse" :id="`menu-nav-${title}`">
             <div class="navbar-inner">
                 <ul class="navbar-nav">
-                    <li class="nav-item" v-for="(item, key) in options" :key="key + 'list'">
+                    <li class="nav-item" v-for="(item, key) in options" :key="key + 'list'" v-show="!item.disabled">
                         <router-link @click.native="closeView" :to="{ name: item.nameroute }" class="nav-link">
                             <i :class="`over ${item.icon}`"></i>
                             <span class="nav-link-text">{{ item.name }}</span>
@@ -29,7 +29,7 @@ export default {
         options: {
             type: Array,
             default: () => []
-        }
+        },
     },
     data() {
         return {}
@@ -37,7 +37,7 @@ export default {
     methods: {
         closeView() {
             this.$emit('closePanel')
-        }
+        },
     }
 }
 </script>

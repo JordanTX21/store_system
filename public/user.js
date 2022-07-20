@@ -40,17 +40,17 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       breadcrumbsList: [{
-        name: 'user',
+        name: 'Usuarios',
         router: 'listuser'
       }]
     };
   },
   components: {
     Breadcrumbs: function Breadcrumbs() {
-      return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../../../components/Breadcrumb.vue */ "./resources/js/components/Breadcrumb.vue"));
+      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../../../components/Breadcrumb.vue */ "./resources/js/components/Breadcrumb.vue"));
     },
     FooterPage: function FooterPage() {
-      return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ../../../components/FooterPage.vue */ "./resources/js/components/FooterPage.vue"));
+      return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../../../components/FooterPage.vue */ "./resources/js/components/FooterPage.vue"));
     }
   },
   mounted: function mounted() {}

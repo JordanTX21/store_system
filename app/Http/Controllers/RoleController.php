@@ -12,6 +12,7 @@ use App\Utils\WithUtils;
 class RoleController extends Controller
 
 {
+    const MODULE_NAME = 'solicitude';
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +22,7 @@ class RoleController extends Controller
     {
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
-        if(!app(UserController::class)->havePermission($auth_user,'read_role')){
+        if(!app(UserController::class)->havePermission($auth_user,'read_'.self::MODULE_NAME)){
             return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
         }
         $roles = Role::with(WithUtils::withUser())->all();
@@ -51,12 +52,12 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $name = $request->name;
+        $name = trim($request->name);
         $permissions = $request->permissions;
 
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
         
-        if(!app(UserController::class)->havePermission($auth_user,'create_role')){
+        if(!app(UserController::class)->havePermission($auth_user,'create_'.self::MODULE_NAME)){
             return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
         }
         if(!$name){
@@ -65,12 +66,36 @@ class RoleController extends Controller
         if(!$permissions || !is_array($permissions) || count($permissions) == 0){
             return response()->json(['success' => false,'message' => 'Las permisos son requeridos'], 200);
         }
-        $role = Role::create([
+        $role = Role::where([['name',$name]])->first();
+        if($role){
+            return response()->json(['success' => false,'message' => 'El rol ya existe'], 200);
+        }
+
+        $permissions_array = [];
+        foreach($permissions as $permission){
+            foreach($permission as $key => $value){
+                if(in_array($key, ['view','read','create','update','delete'])){
+                    $permission_new = Permission::updateOrCreate(
+                        [
+                            'name' => $key."_".$permission["module"]
+                        ],
+                        [
+                            'name' => $key."_".$permission["module"],
+                            'status' => true
+                        ]
+                    );
+                    if($permission[$key]){
+                        $permissions_array[] = $permission_new->id;
+                    }
+                }
+            }
+        }
+        $role_new = Role::create([
             'name' => $name,
             'status' => true
         ]);
-        $role->permissions()->attach($permissions);
-        return response()->json(['success' => true,'message' => 'Rol creado correctamente','data' => $role], 200);
+        $role_new->permissions()->attach($permissions_array);
+        return response()->json(['success' => true,'message' => 'Rol creado correctamente','data' => $role_new], 200);
     }
 
     /**
@@ -104,12 +129,12 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $name = $request->name;
+        $name = trim($request->name);
         $permissions = $request->permissions;
 
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
         
-        if(!app(UserController::class)->havePermission($auth_user,'update_role')){
+        if(!app(UserController::class)->havePermission($auth_user,'update_'.self::MODULE_NAME)){
             return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
         }
         if(!$name){
@@ -118,10 +143,30 @@ class RoleController extends Controller
         if(!$permissions || !is_array($permissions) || count($permissions) == 0){
             return response()->json(['success' => false,'message' => 'Las permisos son requeridos'], 200);
         }
-        $role = Role::findOrFail($id)->update([
+        $permissions_array = [];
+        foreach($permissions as $permission){
+            foreach($permission as $key => $value){
+                if(in_array($key, ['view','read','create','update','delete'])){
+                    $permission_new = Permission::updateOrCreate(
+                        [
+                            'name' => $key."_".$permission["module"]
+                        ],
+                        [
+                            'name' => $key."_".$permission["module"],
+                            'status' => true
+                        ]
+                    );
+                    if($permission[$key]){
+                        $permissions_array[] = $permission_new->id;
+                    }
+                }
+            }
+        }
+        $role = Role::findOrFail($id);
+        $role->update([
             'name' => $name
         ]);
-        $role->permissions()->sync($permissions);
+        $role->permissions()->sync($permissions_array);
         $role->save();
         return response()->json(['success' => true,'message' => 'Rol creado correctamente','data' => $role], 200);
     }
@@ -136,12 +181,42 @@ class RoleController extends Controller
     {
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
-        if(!app(UserController::class)->havePermission($auth_user,'delete_role')){
+        if(!app(UserController::class)->havePermission($auth_user,'delete_'.self::MODULE_NAME)){
             return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
         }
 
         $role = Role::findOrFail($id)->update(['status' => 0]);
 
         return response()->json(['success' => true,'message' => 'Usuario eliminado'], 200);
+    }
+    public function search(Request $request)
+    {
+        $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
+
+        if(!app(UserController::class)->havePermission($auth_user,'read_'.self::MODULE_NAME)){
+            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+        }
+        $where = [];
+        $name = $request->name;
+        $length = $request->length;
+        $start = $request->start;
+        if($name){
+            if(strlen($name) < 4){
+                return response()->json(['success' => false,'message' => 'Debe ingresar al menos 4 caracteres para la busqueda'], 200);
+            }
+            $where[] = ['name','like','%'.trim($name).'%'];
+        }
+        $roles = Role::with(WithUtils::withRole())
+        ->where($where)
+        ->orderBy('created_at','DESC')
+        ->offset($start)
+        ->limit($length)
+        ->get();
+
+        if(count($roles) == 0){
+            return response()->json(['success' => false,'message' => 'No hay roles registrados'], 200);
+        }
+
+        return response()->json(['success' => true,'message' => 'Lista de roles','data' => $roles], 200);
     }
 }

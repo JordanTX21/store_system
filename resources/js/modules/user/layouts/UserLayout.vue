@@ -31,7 +31,7 @@ export default {
     return {
       breadcrumbsList: [
         {
-          name: 'user',
+          name: 'Usuarios',
           router: 'listuser'
         }
       ]

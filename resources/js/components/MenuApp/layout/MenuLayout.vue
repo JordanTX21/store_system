@@ -10,7 +10,7 @@
                     <a class="navbar-brand d-inline-block" href="#">
                         {{ appName }}
                     </a>
-                    <button type="button" class="close p-2" id="dismiss">
+                    <button type="button" class="close p-2" id="dismiss" @click.prevent="dismissMenu">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
@@ -19,7 +19,8 @@
                     <div class="collapse navbar-collapse" id="sidenav-collapse-main">
 
                         <ul class="navbar-nav">
-                            <ListItem v-for="(item, index) in menuList" :title="item.titulo" :options="item.options" :key="index+'items'"/>
+                            <ListItem v-for="(item, index) in menuList" @closePanel="dismissMenu" :title="item.titulo" v-show="!item.disabled"
+                                :options="item.options" :key="index + 'items'" />
                         </ul>
 
                     </div>
@@ -62,8 +63,36 @@ export default {
     },
     data() {
         return {
-            menuList
+            menuList,
         }
+    },
+    methods: {
+        validateOptions(){
+            let permissions = [];
+            this.userLogued.roles.forEach(item => {
+                item.permissions.forEach(permission => {
+                    permissions.push(permission.name);
+                });
+            })
+            this.menuList.forEach(item => {
+                let disableds = 0;
+                item.options.forEach(option => {
+                    if(!permissions.includes(option.permission)){
+                        option.disabled = true;
+                        disableds++;
+                    }
+                })
+                if(disableds == item.options.length){
+                    item.disabled = true;
+                }
+            })
+        },
+        dismissMenu() {
+            // hide sidebar
+            $('#sidenav-main').addClass('active');
+            // hide overlay
+            $('.overlay').removeClass('active');
+        },
     },
     mounted() {
 
@@ -77,6 +106,7 @@ export default {
             // hide overlay
             $('.overlay').removeClass('active');
         });
+        this.validateOptions();
     },
 }
 </script>

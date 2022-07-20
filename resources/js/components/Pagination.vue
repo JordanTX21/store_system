@@ -36,71 +36,86 @@ export default {
       listFiltered: [],
       cantPages: [],
       count: 0,
-      actualPage: {index: 0,pagination: 1,class:'active',count_pagination:1}
+      actualPage: {index: 0, pagination: 1, class: 'active', count_pagination: 1}
     };
   },
-  props:{
+  props: {
     listAll: {
-      type:Array
+      type: Array
+    },
+    is_search: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {
-    filterList(list) {
+    filterList(list, cant) {
       this.cantPages = [];
       this.listFiltered = [];
 
-      this.count = list.length
-      if (list.length >= 10) {
-        let cantPages = Math.ceil(list.length / 10);
+      this.count = cant
+      if (this.count >= 10) {
+        let cantPages = Math.ceil(this.count / 10);
 
         console.log(cantPages)
 
         let cant_in_page = 1
         for (let i = 0; i < cantPages; i++) {
-          cant_in_page += (10*(i))
-          this.cantPages.push({index: i,pagination: i +1,class:'',count_pagination:cant_in_page});
-          this.listFiltered.push(list.slice(i*10,10*(i+1)))
+          this.cantPages.push({index: i, pagination: i + 1, class: '', count_pagination: cant_in_page});
+          if (list.length >= 10) {
+            this.listFiltered.push(list.slice(i * 10, 10 * (i + 1)))
+          }
+          cant_in_page += (10)
         }
 
-        this.list = this.listFiltered[0]
+        this.list = this.listFiltered[0] ? this.listFiltered[0] : this.listAll
 
       } else {
-        this.list = list;
-        this.listFiltered[0] = list;
+        this.list = this.listAll;
+        this.listFiltered[0] = this.listAll;
       }
-      this.cantPages[0] = {index: 0,pagination: 1,class:'active',count_pagination:1};
+      this.cantPages[0] = {index: 0, pagination: 1, class: 'active', count_pagination: 1};
 
       this.actualPage = this.cantPages[0]
 
-      this.$emit('paginate',{
-        "cantPages":this.cantPages,
-        "list":this.list,
-        "listFiltered":this.listFiltered,
-      })
+      // this.$emit('paginate',{
+      //   "actualPage":this.actualPage,
+      //   "cantPages":this.cantPages,
+      //   "list":this.list,
+      //   "listFiltered":this.listFiltered,
+      // })
     },
     sendPaginate(item) {
-      for(let itemCant of this.cantPages){
-        itemCant.class=""
+      for (let itemCant of this.cantPages) {
+        itemCant.class = ""
       }
 
-      item.class='active'
-      this.list = this.listFiltered[item.index]
-      this.count = this.list.length
-
-      this.$emit('paginate',{
-        "cantPages":this.cantPages,
-        "list":this.list,
-        "listFiltered":this.listFiltered,
-      })
+      item.class = 'active'
+      // if(this.listFiltered[item.index]){
+      //   this.list = this.listFiltered[item.index]
+      //   this.count = this.list.length
+      // }
 
       this.actualPage = item
+
+      this.$emit('paginate', {
+        "actualPage": this.actualPage,
+        "cantPages": this.cantPages,
+        "list": this.list,
+        "listFiltered": this.listFiltered,
+      })
     },
-    changePaginate(value){
-      let index = (this.actualPage.index)+value;
-      if(this.cantPages[index]){
+    changePaginate(value) {
+      let index = (this.actualPage.index) + value;
+      if (this.cantPages[index]) {
         this.sendPaginate(this.cantPages[index])
       }
     },
+  },
+  computed: {
+    countActualPage: function () {
+      return (this.actualPage.count_pagination + (this.listAll.length-1))
+    }
   },
   mounted() {
 

@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"home":"home","module":"module","newuser":"newuser","user":"user","vendors~listuser":"vendors~listuser","listuser":"listuser"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"listproduct":"listproduct","listproforma":"listproforma","listprovider":"listprovider","listrole":"listrole","listsolicitude":"listsolicitude","listuser":"listuser","home":"home","module":"module","newproduct":"newproduct","newproforma":"newproforma","newprovider":"newprovider","newrole":"newrole","newsolicitude":"newsolicitude","newuser":"newuser","product":"product","proforma":"proforma","provider":"provider","role":"role","solicitude":"solicitude","updateproforma":"updateproforma","updatesolicitude":"updatesolicitude","user":"user"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -72467,14 +72467,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./router */ "./resources/js/router/index.js");
 /* harmony import */ var vue_moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-moment */ "./node_modules/vue-moment/dist/vue-moment.js");
 /* harmony import */ var vue_moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_moment__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _plugins_utils_alerts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./plugins/utils/alerts */ "./resources/js/plugins/utils/alerts.js");
-/* harmony import */ var _plugins__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./plugins */ "./resources/js/plugins/index.js");
-/* harmony import */ var _plugins_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./plugins/components */ "./resources/js/plugins/components.js");
-/* harmony import */ var malihu_custom_scrollbar_plugin__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! malihu-custom-scrollbar-plugin */ "./node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.js");
-/* harmony import */ var malihu_custom_scrollbar_plugin__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(malihu_custom_scrollbar_plugin__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var malihu_custom_scrollbar_plugin_jquery_mCustomScrollbar_css__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css */ "./node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css");
-/* harmony import */ var malihu_custom_scrollbar_plugin_jquery_mCustomScrollbar_css__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(malihu_custom_scrollbar_plugin_jquery_mCustomScrollbar_css__WEBPACK_IMPORTED_MODULE_9__);
-
+/* harmony import */ var _plugins__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./plugins */ "./resources/js/plugins/index.js");
+/* harmony import */ var _plugins_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./plugins/components */ "./resources/js/plugins/components.js");
+/* harmony import */ var malihu_custom_scrollbar_plugin__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! malihu-custom-scrollbar-plugin */ "./node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.js");
+/* harmony import */ var malihu_custom_scrollbar_plugin__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(malihu_custom_scrollbar_plugin__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var malihu_custom_scrollbar_plugin_jquery_mCustomScrollbar_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css */ "./node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css");
+/* harmony import */ var malihu_custom_scrollbar_plugin_jquery_mCustomScrollbar_css__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(malihu_custom_scrollbar_plugin_jquery_mCustomScrollbar_css__WEBPACK_IMPORTED_MODULE_8__);
 
 
 
@@ -72528,6 +72526,211 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/modules/product/routes/index.js":
+/*!******************************************************!*\
+  !*** ./resources/js/modules/product/routes/index.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/** MODULO BASE PARA COPIAR Y PEGAR
+ * SI NO PUEDES NI ESO YA VENDE CARAMELOS NO MAS
+ * BY JORDAN 11-02-2022*/
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'product',
+  component: function component() {
+    return __webpack_require__.e(/*! import() | product */ "product").then(__webpack_require__.bind(null, /*! ../layouts/ProductLayout.vue */ "./resources/js/modules/product/layouts/ProductLayout.vue"));
+  },
+  children: [{
+    path: '/product/new',
+    name: 'newproduct',
+    component: function component() {
+      return __webpack_require__.e(/*! import() | newproduct */ "newproduct").then(__webpack_require__.bind(null, /*! ../views/FormProduct.vue */ "./resources/js/modules/product/views/FormProduct.vue"));
+    }
+  }, {
+    path: '/product/update',
+    name: 'updateproduct',
+    component: function component() {
+      return __webpack_require__.e(/*! import() | updateproduct */ "newproduct").then(__webpack_require__.bind(null, /*! ../views/FormProduct.vue */ "./resources/js/modules/product/views/FormProduct.vue"));
+    },
+    props: true
+  }, {
+    path: '/product/listar',
+    name: 'listproduct',
+    component: function component() {
+      return Promise.all(/*! import() | listproduct */[__webpack_require__.e(3), __webpack_require__.e(1), __webpack_require__.e("listproduct")]).then(__webpack_require__.bind(null, /*! ../views/ListProduct.vue */ "./resources/js/modules/product/views/ListProduct.vue"));
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/modules/proforma/routes/index.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/modules/proforma/routes/index.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/** MODULO BASE PARA COPIAR Y PEGAR
+ * SI NO PUEDES NI ESO YA VENDE CARAMELOS NO MAS
+ * BY JORDAN 11-02-2022*/
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'proforma',
+  component: function component() {
+    return __webpack_require__.e(/*! import() | proforma */ "proforma").then(__webpack_require__.bind(null, /*! ../layouts/ProformaLayout.vue */ "./resources/js/modules/proforma/layouts/ProformaLayout.vue"));
+  },
+  children: [{
+    path: '/proforma/new',
+    name: 'newproforma',
+    component: function component() {
+      return __webpack_require__.e(/*! import() | newproforma */ "newproforma").then(__webpack_require__.bind(null, /*! ../views/FormProforma.vue */ "./resources/js/modules/proforma/views/FormProforma.vue"));
+    }
+  }, {
+    path: '/proforma/update',
+    name: 'updateproforma',
+    component: function component() {
+      return __webpack_require__.e(/*! import() | updateproforma */ "updateproforma").then(__webpack_require__.bind(null, /*! ../views/FormViewProforma.vue */ "./resources/js/modules/proforma/views/FormViewProforma.vue"));
+    },
+    props: true
+  }, {
+    path: '/proforma/listar',
+    name: 'listproforma',
+    component: function component() {
+      return Promise.all(/*! import() | listproforma */[__webpack_require__.e(3), __webpack_require__.e(1), __webpack_require__.e("listproforma")]).then(__webpack_require__.bind(null, /*! ../views/ListProforma.vue */ "./resources/js/modules/proforma/views/ListProforma.vue"));
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/modules/provider/routes/index.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/modules/provider/routes/index.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/** MODULO BASE PARA COPIAR Y PEGAR
+ * SI NO PUEDES NI ESO YA VENDE CARAMELOS NO MAS
+ * BY JORDAN 11-02-2022*/
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'provider',
+  component: function component() {
+    return __webpack_require__.e(/*! import() | provider */ "provider").then(__webpack_require__.bind(null, /*! ../layouts/ProviderLayout.vue */ "./resources/js/modules/provider/layouts/ProviderLayout.vue"));
+  },
+  children: [{
+    path: '/provider/new',
+    name: 'newprovider',
+    component: function component() {
+      return __webpack_require__.e(/*! import() | newprovider */ "newprovider").then(__webpack_require__.bind(null, /*! ../views/FormProvider.vue */ "./resources/js/modules/provider/views/FormProvider.vue"));
+    }
+  }, {
+    path: '/provider/update',
+    name: 'updateprovider',
+    component: function component() {
+      return __webpack_require__.e(/*! import() | updateprovider */ "newprovider").then(__webpack_require__.bind(null, /*! ../views/FormProvider.vue */ "./resources/js/modules/provider/views/FormProvider.vue"));
+    },
+    props: true
+  }, {
+    path: '/provider/listar',
+    name: 'listprovider',
+    component: function component() {
+      return Promise.all(/*! import() | listprovider */[__webpack_require__.e(3), __webpack_require__.e(1), __webpack_require__.e("listprovider")]).then(__webpack_require__.bind(null, /*! ../views/ListProvider.vue */ "./resources/js/modules/provider/views/ListProvider.vue"));
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/modules/role/routes/index.js":
+/*!***************************************************!*\
+  !*** ./resources/js/modules/role/routes/index.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/** MODULO BASE PARA COPIAR Y PEGAR
+ * SI NO PUEDES NI ESO YA VENDE CARAMELOS NO MAS
+ * BY JORDAN 11-02-2022*/
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'role',
+  component: function component() {
+    return __webpack_require__.e(/*! import() | role */ "role").then(__webpack_require__.bind(null, /*! ../layouts/RoleLayout.vue */ "./resources/js/modules/role/layouts/RoleLayout.vue"));
+  },
+  children: [{
+    path: '/role/new',
+    name: 'newrole',
+    component: function component() {
+      return __webpack_require__.e(/*! import() | newrole */ "newrole").then(__webpack_require__.bind(null, /*! ../views/FormRole.vue */ "./resources/js/modules/role/views/FormRole.vue"));
+    }
+  }, {
+    path: '/role/update',
+    name: 'updaterole',
+    component: function component() {
+      return __webpack_require__.e(/*! import() | updaterole */ "newrole").then(__webpack_require__.bind(null, /*! ../views/FormRole.vue */ "./resources/js/modules/role/views/FormRole.vue"));
+    },
+    props: true
+  }, {
+    path: '/role/listar',
+    name: 'listrole',
+    component: function component() {
+      return Promise.all(/*! import() | listrole */[__webpack_require__.e(3), __webpack_require__.e(1), __webpack_require__.e("listrole")]).then(__webpack_require__.bind(null, /*! ../views/ListRole.vue */ "./resources/js/modules/role/views/ListRole.vue"));
+    }
+  }]
+});
+
+/***/ }),
+
+/***/ "./resources/js/modules/solicitude/routes/index.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/modules/solicitude/routes/index.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/** MODULO BASE PARA COPIAR Y PEGAR
+ * SI NO PUEDES NI ESO YA VENDE CARAMELOS NO MAS
+ * BY JORDAN 11-02-2022*/
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'solicitude',
+  component: function component() {
+    return __webpack_require__.e(/*! import() | solicitude */ "solicitude").then(__webpack_require__.bind(null, /*! ../layouts/SolicitudeLayout.vue */ "./resources/js/modules/solicitude/layouts/SolicitudeLayout.vue"));
+  },
+  children: [{
+    path: '/solicitude/new',
+    name: 'newsolicitude',
+    component: function component() {
+      return __webpack_require__.e(/*! import() | newsolicitude */ "newsolicitude").then(__webpack_require__.bind(null, /*! ../views/FormSolicitude.vue */ "./resources/js/modules/solicitude/views/FormSolicitude.vue"));
+    }
+  }, {
+    path: '/solicitude/update',
+    name: 'updatesolicitude',
+    component: function component() {
+      return __webpack_require__.e(/*! import() | updatesolicitude */ "updatesolicitude").then(__webpack_require__.bind(null, /*! ../views/FormViewSolicitude.vue */ "./resources/js/modules/solicitude/views/FormViewSolicitude.vue"));
+    },
+    props: true
+  }, {
+    path: '/solicitude/listar',
+    name: 'listsolicitude',
+    component: function component() {
+      return Promise.all(/*! import() | listsolicitude */[__webpack_require__.e(3), __webpack_require__.e(1), __webpack_require__.e("listsolicitude")]).then(__webpack_require__.bind(null, /*! ../views/ListSolicitude.vue */ "./resources/js/modules/solicitude/views/ListSolicitude.vue"));
+    }
+  }]
+});
+
+/***/ }),
+
 /***/ "./resources/js/modules/user/routes/index.js":
 /*!***************************************************!*\
   !*** ./resources/js/modules/user/routes/index.js ***!
@@ -72562,7 +72765,7 @@ __webpack_require__.r(__webpack_exports__);
     path: '/user/listar',
     name: 'listuser',
     component: function component() {
-      return Promise.all(/*! import() | listuser */[__webpack_require__.e("vendors~listuser"), __webpack_require__.e("listuser")]).then(__webpack_require__.bind(null, /*! ../views/ListUser.vue */ "./resources/js/modules/user/views/ListUser.vue"));
+      return Promise.all(/*! import() | listuser */[__webpack_require__.e(3), __webpack_require__.e(1), __webpack_require__.e("listuser")]).then(__webpack_require__.bind(null, /*! ../views/ListUser.vue */ "./resources/js/modules/user/views/ListUser.vue"));
     }
   }]
 });
@@ -74610,7 +74813,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('validation-observer', vee_
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_alerts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/alerts.js */ "./resources/js/plugins/utils/alerts.js");
-/* harmony import */ var _utils_validators_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/validators.js */ "./resources/js/plugins/utils/validators.js");
+/* harmony import */ var _utils_constans_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/constans.js */ "./resources/js/plugins/utils/constans.js");
+/* harmony import */ var _utils_validators_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/validators.js */ "./resources/js/plugins/utils/validators.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/plugins/bootstrap.js");
 
 __webpack_require__(/*! ./aragon */ "./resources/js/plugins/aragon.js");
@@ -74619,7 +74823,9 @@ __webpack_require__(/*! vue-moment */ "./node_modules/vue-moment/dist/vue-moment
 
 
 
+
 window.Alerts = _utils_alerts_js__WEBPACK_IMPORTED_MODULE_0__;
+window.Constants = _utils_constans_js__WEBPACK_IMPORTED_MODULE_1__;
 
 /***/ }),
 
@@ -74672,7 +74878,7 @@ var app = {
 /*!**********************************************!*\
   !*** ./resources/js/plugins/utils/alerts.js ***!
   \**********************************************/
-/*! exports provided: DELETED_MESSAGE, UPDATED_MESSAGE, CREATED_MESSAGE, LOADED_MESSAGE, ERROR_MESSAGE, alertLoading, showCreatedMessage, showUpdatedMessage, showLoadedMessage, showDeletedMessage, showErrorMessage, showErrorMessageWithMessage, failedPassword, showMessage, showConfirmDeleteMessage, showConfirmAnularMessage, showConfirmDisableMessage, showConfirmMessage, showToastMessage, showToastErrorMessage, showSeatBlock, showSeatBook, showSeatSell, showSelectModalidad, showUniqueReserveSeat, showMultipleReserveSeat, showNoReservedSeats, showNoTickets, confirmDeleteReservation, confirmDeleteDeparture, showSuccessDeleteTicket, showSuccessReservation, showInvalidPassword, showSuccessChangePrice, showErrorCapacity, showSuccessDeleteReservations, confirmGetOuthDeparturePage, showWarningChangeBus, showWarningSeat, showChangeSeatSuccessful, confirmChangeBus, showSuccessChangeBus */
+/*! exports provided: DELETED_MESSAGE, UPDATED_MESSAGE, CREATED_MESSAGE, LOADED_MESSAGE, ERROR_MESSAGE, alertLoading, showCreatedMessage, showUpdatedMessage, showLoadedMessage, showDeletedMessage, showErrorMessage, showErrorMessageWithMessage, failedPassword, showMessage, showConfirmDeleteMessage, showConfirmAnularMessage, showConfirmDisableMessage, showConfirmMessage, showToastMessage, showToastErrorMessage, showSeatBlock, showSeatBook, showSeatSell, showSelectModalidad, showUniqueReserveSeat, showMultipleReserveSeat, showNoReservedSeats, showNoTickets, confirmDeleteReservation, confirmDeleteDeparture, showSuccessDeleteTicket, showSuccessReservation, showInvalidPassword, showSuccessChangePrice, showErrorCapacity, showSuccessDeleteReservations, confirmGetOuthDeparturePage, showWarningChangeBus, showWarningSeat, showChangeSeatSuccessful, confirmChangeBus, showSuccessChangeBus, showAddProductForm */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -74719,8 +74925,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showChangeSeatSuccessful", function() { return showChangeSeatSuccessful; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "confirmChangeBus", function() { return confirmChangeBus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showSuccessChangeBus", function() { return showSuccessChangeBus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showAddProductForm", function() { return showAddProductForm; });
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 var DELETED_MESSAGE = 'Eliminado correctamente';
 var UPDATED_MESSAGE = 'Actualizado correctamente';
@@ -75008,6 +75223,255 @@ var confirmChangeBus = function confirmChangeBus() {
 var showSuccessChangeBus = function showSuccessChangeBus() {
   return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Correcto', 'Se realizo el cambio de bus de manera correcta', 'success');
 };
+var showAddProductForm = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(item) {
+    var _yield$Swal$fire, formValues;
+
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+              title: 'Ingrese la Cantidad',
+              icon: 'info',
+              html: '<div style="max-width:90%">' + '<div class="form-group row">' + '<label for="swal-input-quantity" class="col-sm-4 col-form-label">Cantidad</label>' + '<div class="col-sm-6">' + '<input id="swal-input-quantity" class="form-control" type="number">' + '</div>' + '</div>' + '<div class="form-group row">' + '<label for="swal-input-price" class="col-sm-4 col-form-label">Precio</label>' + '<div class="col-sm-6">' + '<input id="swal-input-price" class="form-control" type="number" value="' + item.purchase_price + '" readonly>' + '</div>' + '</div>' + '</div>',
+              focusConfirm: false,
+              showCloseButton: true,
+              showCancelButton: true,
+              preConfirm: function preConfirm() {
+                return [document.getElementById('swal-input-quantity').value, document.getElementById('swal-input-price').value];
+              }
+            });
+
+          case 2:
+            _yield$Swal$fire = _context.sent;
+            formValues = _yield$Swal$fire.value;
+            return _context.abrupt("return", formValues);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function showAddProductForm(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+/***/ }),
+
+/***/ "./resources/js/plugins/utils/constans.js":
+/*!************************************************!*\
+  !*** ./resources/js/plugins/utils/constans.js ***!
+  \************************************************/
+/*! exports provided: FORM_STATUS_ENABLED, FORM_STATUS_DISABLED, FORM_MODALIDAD_OPTIONS, FORM_PAY_OPTIONS, STATUS_ENABLED, STATUS_DISABLED, STATUS_EDIT, STATUS_CREATE, ATTRIBUTE_TV, ATTRIBUTE_STAIRS, ATTRIBUTE_BATHROOM, ATTRIBUTE_SEAT, ATTRIBUTE_UNDEFINED, SEAT_FIRST_FLOOR, SEAT_SECOND_FLOOR, getStatus, HTTP_CONTINUE, HTTP_SWITCHING_PROTOCOLS, HTTP_PROCESSING, HTTP_OK, HTTP_CREATED, HTTP_ACCEPTED, HTTP_NON_AUTHORITATIVE_INFORMATION, HTTP_NO_CONTENT, HTTP_RESET_CONTENT, HTTP_PARTIAL_CONTENT, HTTP_MULTI_STATUS, HTTP_ALREADY_REPORTED, HTTP_IM_USED, HTTP_MULTIPLE_CHOICES, HTTP_MOVED_PERMANENTLY, HTTP_FOUND, HTTP_SEE_OTHER, HTTP_NOT_MODIFIED, HTTP_USE_PROXY, HTTP_RESERVED, HTTP_TEMPORARY_REDIRECT, HTTP_PERMANENTLY_REDIRECT, HTTP_BAD_REQUEST, HTTP_UNAUTHORIZED, HTTP_PAYMENT_REQUIRED, HTTP_FORBIDDEN, HTTP_NOT_FOUND, HTTP_METHOD_NOT_ALLOWED, HTTP_NOT_ACCEPTABLE, HTTP_PROXY_AUTHENTICATION_REQUIRED, HTTP_REQUEST_TIMEOUT, HTTP_CONFLICT, HTTP_GONE, HTTP_LENGTH_REQUIRED, HTTP_PRECONDITION_FAILED, HTTP_REQUEST_ENTITY_TOO_LARGE, HTTP_REQUEST_URI_TOO_LONG, HTTP_UNSUPPORTED_MEDIA_TYPE, HTTP_REQUESTED_RANGE_NOT_SATISFIABLE, HTTP_EXPECTATION_FAILED, HTTP_I_AM_A_TEAPOT, HTTP_MISDIRECTED_REQUEST, HTTP_UNPROCESSABLE_ENTITY, HTTP_LOCKED, HTTP_FAILED_DEPENDENCY, HTTP_RESERVED_FOR_WEBDAV_ADVANCED_COLLECTIONS_EXPIRED_PROPOSAL, HTTP_UPGRADE_REQUIRED, HTTP_PRECONDITION_REQUIRED, HTTP_TOO_MANY_REQUESTS, HTTP_REQUEST_HEADER_FIELDS_TOO_LARGE, HTTP_UNAVAILABLE_FOR_LEGAL_REASONS, HTTP_INTERNAL_SERVER_ERROR, HTTP_NOT_IMPLEMENTED, HTTP_BAD_GATEWAY, HTTP_SERVICE_UNAVAILABLE, HTTP_GATEWAY_TIMEOUT, HTTP_VERSION_NOT_SUPPORTED, HTTP_VARIANT_ALSO_NEGOTIATES_EXPERIMENTAL, HTTP_INSUFFICIENT_STORAGE, HTTP_LOOP_DETECTED, HTTP_NOT_EXTENDED, HTTP_NETWORK_AUTHENTICATION_REQUIRED */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FORM_STATUS_ENABLED", function() { return FORM_STATUS_ENABLED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FORM_STATUS_DISABLED", function() { return FORM_STATUS_DISABLED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FORM_MODALIDAD_OPTIONS", function() { return FORM_MODALIDAD_OPTIONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FORM_PAY_OPTIONS", function() { return FORM_PAY_OPTIONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STATUS_ENABLED", function() { return STATUS_ENABLED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STATUS_DISABLED", function() { return STATUS_DISABLED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STATUS_EDIT", function() { return STATUS_EDIT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "STATUS_CREATE", function() { return STATUS_CREATE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ATTRIBUTE_TV", function() { return ATTRIBUTE_TV; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ATTRIBUTE_STAIRS", function() { return ATTRIBUTE_STAIRS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ATTRIBUTE_BATHROOM", function() { return ATTRIBUTE_BATHROOM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ATTRIBUTE_SEAT", function() { return ATTRIBUTE_SEAT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ATTRIBUTE_UNDEFINED", function() { return ATTRIBUTE_UNDEFINED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SEAT_FIRST_FLOOR", function() { return SEAT_FIRST_FLOOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SEAT_SECOND_FLOOR", function() { return SEAT_SECOND_FLOOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getStatus", function() { return getStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_CONTINUE", function() { return HTTP_CONTINUE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_SWITCHING_PROTOCOLS", function() { return HTTP_SWITCHING_PROTOCOLS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_PROCESSING", function() { return HTTP_PROCESSING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_OK", function() { return HTTP_OK; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_CREATED", function() { return HTTP_CREATED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_ACCEPTED", function() { return HTTP_ACCEPTED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_NON_AUTHORITATIVE_INFORMATION", function() { return HTTP_NON_AUTHORITATIVE_INFORMATION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_NO_CONTENT", function() { return HTTP_NO_CONTENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_RESET_CONTENT", function() { return HTTP_RESET_CONTENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_PARTIAL_CONTENT", function() { return HTTP_PARTIAL_CONTENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_MULTI_STATUS", function() { return HTTP_MULTI_STATUS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_ALREADY_REPORTED", function() { return HTTP_ALREADY_REPORTED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_IM_USED", function() { return HTTP_IM_USED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_MULTIPLE_CHOICES", function() { return HTTP_MULTIPLE_CHOICES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_MOVED_PERMANENTLY", function() { return HTTP_MOVED_PERMANENTLY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_FOUND", function() { return HTTP_FOUND; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_SEE_OTHER", function() { return HTTP_SEE_OTHER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_NOT_MODIFIED", function() { return HTTP_NOT_MODIFIED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_USE_PROXY", function() { return HTTP_USE_PROXY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_RESERVED", function() { return HTTP_RESERVED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_TEMPORARY_REDIRECT", function() { return HTTP_TEMPORARY_REDIRECT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_PERMANENTLY_REDIRECT", function() { return HTTP_PERMANENTLY_REDIRECT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_BAD_REQUEST", function() { return HTTP_BAD_REQUEST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_UNAUTHORIZED", function() { return HTTP_UNAUTHORIZED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_PAYMENT_REQUIRED", function() { return HTTP_PAYMENT_REQUIRED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_FORBIDDEN", function() { return HTTP_FORBIDDEN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_NOT_FOUND", function() { return HTTP_NOT_FOUND; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_METHOD_NOT_ALLOWED", function() { return HTTP_METHOD_NOT_ALLOWED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_NOT_ACCEPTABLE", function() { return HTTP_NOT_ACCEPTABLE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_PROXY_AUTHENTICATION_REQUIRED", function() { return HTTP_PROXY_AUTHENTICATION_REQUIRED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_REQUEST_TIMEOUT", function() { return HTTP_REQUEST_TIMEOUT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_CONFLICT", function() { return HTTP_CONFLICT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_GONE", function() { return HTTP_GONE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_LENGTH_REQUIRED", function() { return HTTP_LENGTH_REQUIRED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_PRECONDITION_FAILED", function() { return HTTP_PRECONDITION_FAILED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_REQUEST_ENTITY_TOO_LARGE", function() { return HTTP_REQUEST_ENTITY_TOO_LARGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_REQUEST_URI_TOO_LONG", function() { return HTTP_REQUEST_URI_TOO_LONG; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_UNSUPPORTED_MEDIA_TYPE", function() { return HTTP_UNSUPPORTED_MEDIA_TYPE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_REQUESTED_RANGE_NOT_SATISFIABLE", function() { return HTTP_REQUESTED_RANGE_NOT_SATISFIABLE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_EXPECTATION_FAILED", function() { return HTTP_EXPECTATION_FAILED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_I_AM_A_TEAPOT", function() { return HTTP_I_AM_A_TEAPOT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_MISDIRECTED_REQUEST", function() { return HTTP_MISDIRECTED_REQUEST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_UNPROCESSABLE_ENTITY", function() { return HTTP_UNPROCESSABLE_ENTITY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_LOCKED", function() { return HTTP_LOCKED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_FAILED_DEPENDENCY", function() { return HTTP_FAILED_DEPENDENCY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_RESERVED_FOR_WEBDAV_ADVANCED_COLLECTIONS_EXPIRED_PROPOSAL", function() { return HTTP_RESERVED_FOR_WEBDAV_ADVANCED_COLLECTIONS_EXPIRED_PROPOSAL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_UPGRADE_REQUIRED", function() { return HTTP_UPGRADE_REQUIRED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_PRECONDITION_REQUIRED", function() { return HTTP_PRECONDITION_REQUIRED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_TOO_MANY_REQUESTS", function() { return HTTP_TOO_MANY_REQUESTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_REQUEST_HEADER_FIELDS_TOO_LARGE", function() { return HTTP_REQUEST_HEADER_FIELDS_TOO_LARGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_UNAVAILABLE_FOR_LEGAL_REASONS", function() { return HTTP_UNAVAILABLE_FOR_LEGAL_REASONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_INTERNAL_SERVER_ERROR", function() { return HTTP_INTERNAL_SERVER_ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_NOT_IMPLEMENTED", function() { return HTTP_NOT_IMPLEMENTED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_BAD_GATEWAY", function() { return HTTP_BAD_GATEWAY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_SERVICE_UNAVAILABLE", function() { return HTTP_SERVICE_UNAVAILABLE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_GATEWAY_TIMEOUT", function() { return HTTP_GATEWAY_TIMEOUT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_VERSION_NOT_SUPPORTED", function() { return HTTP_VERSION_NOT_SUPPORTED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_VARIANT_ALSO_NEGOTIATES_EXPERIMENTAL", function() { return HTTP_VARIANT_ALSO_NEGOTIATES_EXPERIMENTAL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_INSUFFICIENT_STORAGE", function() { return HTTP_INSUFFICIENT_STORAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_LOOP_DETECTED", function() { return HTTP_LOOP_DETECTED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_NOT_EXTENDED", function() { return HTTP_NOT_EXTENDED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HTTP_NETWORK_AUTHENTICATION_REQUIRED", function() { return HTTP_NETWORK_AUTHENTICATION_REQUIRED; });
+var FORM_STATUS_ENABLED = {
+  id: 1,
+  name: 'SI'
+};
+var FORM_STATUS_DISABLED = {
+  id: 0,
+  name: 'NO'
+};
+var FORM_MODALIDAD_OPTIONS = [{
+  name: 'RESERVA',
+  id: 'R'
+}, {
+  name: 'VENTA',
+  id: 'V'
+}];
+var FORM_PAY_OPTIONS = [{
+  name: 'TERMINAL',
+  id: 'TE'
+}, {
+  name: 'RED BUS',
+  id: 'RE'
+}, {
+  name: 'PAGO EFECTIVO',
+  id: 'PA'
+}];
+var STATUS_ENABLED = 1;
+var STATUS_DISABLED = 0;
+var STATUS_EDIT = 'EDIT';
+var STATUS_CREATE = 'CREATE';
+var ATTRIBUTE_TV = 'TV';
+var ATTRIBUTE_STAIRS = 'ESCALERA';
+var ATTRIBUTE_BATHROOM = 'SANITARIO';
+var ATTRIBUTE_SEAT = 'ASIENTO';
+var ATTRIBUTE_UNDEFINED = 'VACIO';
+var SEAT_FIRST_FLOOR = 1;
+var SEAT_SECOND_FLOOR = 2;
+var getStatus = function getStatus(formStatus) {
+  return formStatus === FORM_STATUS_ENABLED ? STATUS_ENABLED : STATUS_DISABLED;
+}; // HTTP STATUS CODES
+
+var HTTP_CONTINUE = 100;
+var HTTP_SWITCHING_PROTOCOLS = 101;
+var HTTP_PROCESSING = 102; // RFC2518
+
+var HTTP_OK = 200;
+var HTTP_CREATED = 201;
+var HTTP_ACCEPTED = 202;
+var HTTP_NON_AUTHORITATIVE_INFORMATION = 203;
+var HTTP_NO_CONTENT = 204;
+var HTTP_RESET_CONTENT = 205;
+var HTTP_PARTIAL_CONTENT = 206;
+var HTTP_MULTI_STATUS = 207; // RFC4918
+
+var HTTP_ALREADY_REPORTED = 208; // RFC5842
+
+var HTTP_IM_USED = 226; // RFC3229
+
+var HTTP_MULTIPLE_CHOICES = 300;
+var HTTP_MOVED_PERMANENTLY = 301;
+var HTTP_FOUND = 302;
+var HTTP_SEE_OTHER = 303;
+var HTTP_NOT_MODIFIED = 304;
+var HTTP_USE_PROXY = 305;
+var HTTP_RESERVED = 306;
+var HTTP_TEMPORARY_REDIRECT = 307;
+var HTTP_PERMANENTLY_REDIRECT = 308; // RFC7238
+
+var HTTP_BAD_REQUEST = 400;
+var HTTP_UNAUTHORIZED = 401;
+var HTTP_PAYMENT_REQUIRED = 402;
+var HTTP_FORBIDDEN = 403;
+var HTTP_NOT_FOUND = 404;
+var HTTP_METHOD_NOT_ALLOWED = 405;
+var HTTP_NOT_ACCEPTABLE = 406;
+var HTTP_PROXY_AUTHENTICATION_REQUIRED = 407;
+var HTTP_REQUEST_TIMEOUT = 408;
+var HTTP_CONFLICT = 409;
+var HTTP_GONE = 410;
+var HTTP_LENGTH_REQUIRED = 411;
+var HTTP_PRECONDITION_FAILED = 412;
+var HTTP_REQUEST_ENTITY_TOO_LARGE = 413;
+var HTTP_REQUEST_URI_TOO_LONG = 414;
+var HTTP_UNSUPPORTED_MEDIA_TYPE = 415;
+var HTTP_REQUESTED_RANGE_NOT_SATISFIABLE = 416;
+var HTTP_EXPECTATION_FAILED = 417;
+var HTTP_I_AM_A_TEAPOT = 418; // RFC2324
+
+var HTTP_MISDIRECTED_REQUEST = 421; // RFC7540
+
+var HTTP_UNPROCESSABLE_ENTITY = 422; // RFC4918
+
+var HTTP_LOCKED = 423; // RFC4918
+
+var HTTP_FAILED_DEPENDENCY = 424; // RFC4918
+
+var HTTP_RESERVED_FOR_WEBDAV_ADVANCED_COLLECTIONS_EXPIRED_PROPOSAL = 425; // RFC2817
+
+var HTTP_UPGRADE_REQUIRED = 426; // RFC2817
+
+var HTTP_PRECONDITION_REQUIRED = 428; // RFC6585
+
+var HTTP_TOO_MANY_REQUESTS = 429; // RFC6585
+
+var HTTP_REQUEST_HEADER_FIELDS_TOO_LARGE = 431; // RFC6585
+
+var HTTP_UNAVAILABLE_FOR_LEGAL_REASONS = 451;
+var HTTP_INTERNAL_SERVER_ERROR = 500;
+var HTTP_NOT_IMPLEMENTED = 501;
+var HTTP_BAD_GATEWAY = 502;
+var HTTP_SERVICE_UNAVAILABLE = 503;
+var HTTP_GATEWAY_TIMEOUT = 504;
+var HTTP_VERSION_NOT_SUPPORTED = 505;
+var HTTP_VARIANT_ALSO_NEGOTIATES_EXPERIMENTAL = 506; // RFC2295
+
+var HTTP_INSUFFICIENT_STORAGE = 507; // RFC4918
+
+var HTTP_LOOP_DETECTED = 508; // RFC5842
+
+var HTTP_NOT_EXTENDED = 510; // RFC2774
+
+var HTTP_NETWORK_AUTHENTICATION_REQUIRED = 511;
 
 /***/ }),
 
@@ -75052,11 +75516,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var nprogress__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(nprogress__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _modules_home_routes_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modules/home/routes/index.js */ "./resources/js/modules/home/routes/index.js");
 /* harmony import */ var _modules_user_routes_index_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../modules/user/routes/index.js */ "./resources/js/modules/user/routes/index.js");
+/* harmony import */ var _modules_role_routes_index_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../modules/role/routes/index.js */ "./resources/js/modules/role/routes/index.js");
+/* harmony import */ var _modules_provider_routes_index_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../modules/provider/routes/index.js */ "./resources/js/modules/provider/routes/index.js");
+/* harmony import */ var _modules_product_routes_index_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../modules/product/routes/index.js */ "./resources/js/modules/product/routes/index.js");
+/* harmony import */ var _modules_solicitude_routes_index_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../modules/solicitude/routes/index.js */ "./resources/js/modules/solicitude/routes/index.js");
+/* harmony import */ var _modules_proforma_routes_index_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../modules/proforma/routes/index.js */ "./resources/js/modules/proforma/routes/index.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
 
 
 
@@ -75076,7 +75550,17 @@ var routes = [{
     path: '/'
   }, _modules_home_routes_index_js__WEBPACK_IMPORTED_MODULE_4__["default"]), _objectSpread({
     path: '/user'
-  }, _modules_user_routes_index_js__WEBPACK_IMPORTED_MODULE_5__["default"])],
+  }, _modules_user_routes_index_js__WEBPACK_IMPORTED_MODULE_5__["default"]), _objectSpread({
+    path: '/role'
+  }, _modules_role_routes_index_js__WEBPACK_IMPORTED_MODULE_6__["default"]), _objectSpread({
+    path: '/provider'
+  }, _modules_provider_routes_index_js__WEBPACK_IMPORTED_MODULE_7__["default"]), _objectSpread({
+    path: '/product'
+  }, _modules_product_routes_index_js__WEBPACK_IMPORTED_MODULE_8__["default"]), _objectSpread({
+    path: '/solicitude'
+  }, _modules_solicitude_routes_index_js__WEBPACK_IMPORTED_MODULE_9__["default"]), _objectSpread({
+    path: '/proforma'
+  }, _modules_proforma_routes_index_js__WEBPACK_IMPORTED_MODULE_10__["default"])],
   props: true
 }, {
   path: '*',

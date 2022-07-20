@@ -151,14 +151,20 @@ class UserController extends Controller
             return response()->json(['success' => false,'message' => 'El email es requerido'], 200);
         }
 
+        $data = [
+            'name' => $name,
+            'email' => $email,
+        ];
+
         if($password){
             if($password != $repeat_password){
                 return response()->json(['success' => false,'message' => 'Las contraseñas no coinciden'], 200);
             }
-            $request->merge(['password' => bcrypt($password)]);
+            $data['password'] = bcrypt(trim($password));
         }
 
-        $new_user = User::findOrFail($id)->update($request->all());
+        $new_user = User::findOrFail($id);
+        $new_user->update($data);
         $new_user->roles()->sync($role);
         $new_user->save();
         return response()->json(['success' => true,'message' => 'Usuario creado'], 200);
@@ -217,5 +223,35 @@ class UserController extends Controller
         $count = $users->count();
         $users = $users->offset($start)->limit($limit)->get();
         return response()->json(['success' => true,'message' => 'Usuarios encontrados','data' => $users,'count' => $count], 200);
+    }
+    public function search(Request $request)
+    {
+        $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
+
+        if(!$this->havePermission($auth_user,'read_user')){
+            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+        }
+        $where = [];
+        $name = $request->name;
+        $length = $request->length;
+        $start = $request->start;
+        if($name){
+            if(strlen($name) < 4){
+                return response()->json(['success' => false,'message' => 'Debe ingresar al menos 4 caracteres para la busqueda'], 200);
+            }
+            $where[] = ['name','like','%'.trim($name).'%'];
+        }
+        $users = User::with(WithUtils::withUser())
+        ->where($where)
+        ->orderBy('created_at','DESC')
+        ->offset($start)
+        ->limit($length)
+        ->get();
+
+        if(count($users) == 0){
+            return response()->json(['success' => false,'message' => 'No hay usuarios registrados'], 200);
+        }
+
+        return response()->json(['success' => true,'message' => 'Lista de usuarios','data' => $users], 200);
     }
 }

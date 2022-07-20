@@ -20,7 +20,7 @@ export default [
             {
                 name:'Productos',
                 icon:'fas fa-box-open',
-                nameroute:'list_products'
+                nameroute:'list_product'
             },
         ]
     },
