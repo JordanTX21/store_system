@@ -18,7 +18,7 @@
                                 <form class="needs-validation" @submit.prevent="handleSubmit(checkForm)">
                                     <div class="form-group mb-3">
                                         <!--|max_value:${item.quantity}-->
-                                        <validation-provider name="Cantidad" :rules="`required|numeric|min_value:1`"
+                                        <validation-provider name="Cantidad" :rules="`required|numeric|min_value:1|max_value:${item.quantity}`"
                                             v-slot="{ errors }">
                                             <label class="form-control-label" for="input-quantity">Cantidad</label>
                                             <input type="number" v-model="form.quantity" class="form-control"
@@ -30,7 +30,7 @@
                                         <validation-provider name="Precio" :rules="`required|min_value:0`"
                                             v-slot="{ errors }">
                                             <label class="form-control-label" for="input-price">Precio</label>
-                                            <input type="number" step=".01" v-model="form.purchase_price" class="form-control"
+                                            <input type="number" step=".01" v-model="form.price" class="form-control"
                                                 id="input-price" placeholder="0.00" readonly>
                                             <span class="is-invalid">{{ errors[0] }}</span>
                                         </validation-provider>
@@ -58,7 +58,7 @@ export default {
             form: {
                 id: '',
                 quantity: '',
-                purchase_price: '',
+                price: '',
             },
             is_send_data: false,
             item: {},
@@ -66,16 +66,16 @@ export default {
     },
     methods: {
         checkForm() {
-            /*if(item.quantity < form.quantity) {
+            if(this.item.quantity < this.form.quantity) {
                 Alerts.showToastErrorMessage('La cantidad solicitada es mayor a la existente');
                 return false;
-            }*/
+            }
 
             this.is_send_data = true;
             this.$emit('addProduct', {...this.form})
         },
         changeQuantity() {
-            this.form.purchase_price = this.item.purchase_price * this.form.quantity
+            this.form.price = this.item.price * this.form.quantity
         },
         showModal(item) {
             this.item = {...item};

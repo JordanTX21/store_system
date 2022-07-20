@@ -85,9 +85,27 @@ export default {
       this.list = this.list.filter((myitem) => myitem !== item)
     },
     validateProductsInList() {
-      for (const item of this.products) {
-        this.list = this.list.filter(product => product.id !== item.id)
+      for (const product of this.products) {
+        for (const myproduct of this.list) {
+          if (product.id === myproduct.id) {
+            myproduct.quantity = parseFloat(myproduct.quantity) - parseFloat(product.quantity);
+          }
+        }
       }
+    },
+    addProductsToList(product) {
+        for (const item of this.list) {
+          if (product.id === item.id) {
+            item.quantity = parseFloat(item.quantity) - parseFloat(product.quantity);
+          }
+        }
+    },
+    deleteProductsToList(product) {
+        for (const item of this.list) {
+          if (product.id === item.id) {
+            item.quantity = parseFloat(item.quantity) + parseFloat(product.quantity);
+          }
+        }
     }
   },
 }

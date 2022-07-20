@@ -30,7 +30,7 @@
               <tr role="row" class="odd" v-for="(item, index) in listAll" :key="`row_${index}`">
                 <td>{{ item.name }}</td>
                 <td>{{ item.unit }}</td>
-                <td>S/.{{ item.purchase_price.toFixed(2) }}</td>
+                <td>S/.{{ item.price.toFixed(2) }}</td>
                 <td>{{ item.quantity }}</td>
                 <td>{{ item.provider.name }}</td>
                 <td class="text-right">

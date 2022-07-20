@@ -59,6 +59,13 @@ class WithUtils
     public static function withProformaProduct(){
         return array(
             'product',
+            'product.provider',
+            'proforma',
+        );
+    }
+    public static function withInvoice(){
+        return array(
+            'user',
             'proforma',
         );
     }

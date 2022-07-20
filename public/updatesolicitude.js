@@ -68,10 +68,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../../../components/Button.vue */ "./resources/js/components/Button.vue"));
     },
     ListProducts: function ListProducts() {
-      return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(1), __webpack_require__.e(5), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ../components/ListProducts/views/ListProduct.vue */ "./resources/js/modules/solicitude/components/ListProducts/views/ListProduct.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e(6), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ../components/ListProducts/views/ListProduct.vue */ "./resources/js/modules/solicitude/components/ListProducts/views/ListProduct.vue"));
     },
     TableListProducts: function TableListProducts() {
-      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ../components/ListProducts/components/TableProduct.vue */ "./resources/js/modules/solicitude/components/ListProducts/components/TableProduct.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ../components/ListProducts/components/TableProduct.vue */ "./resources/js/modules/solicitude/components/ListProducts/components/TableProduct.vue"));
     }
   },
   data: function data() {

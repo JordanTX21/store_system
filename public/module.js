@@ -52,7 +52,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: {
     Breadcrumbs: function Breadcrumbs() {
-      return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ../../../components/Breadcrumb.vue */ "./resources/js/components/Breadcrumb.vue"));
+      return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.bind(null, /*! ../../../components/Breadcrumb.vue */ "./resources/js/components/Breadcrumb.vue"));
     }
   }
 });

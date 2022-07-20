@@ -11,13 +11,25 @@
             <div class="card-header d-flex justify-content-between">
               <h3 class="mb-0">Productos añadidos</h3>
               <div>
-                <span>Pecio Total: <span class="badge badge-danger">S./{{ total_price }}</span></span>
+                <span>Pecio Total: <span class="badge badge-danger">S/.{{ total_price }}</span></span>
                 <span>Cantidad Total: <span class="badge badge-danger">{{ total_quantity }}</span></span>
               </div>
             </div>
             <div class="card-body">
               <TableListProducts ref="table" :listAll="products" :is_search="is_adding" @deleteItem="deleteItem"
                 :can_delete="true"></TableListProducts>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-4">
+              <div class="form-group mb-3">
+                <validation-provider name="Documento del Cliente" rules="required|numeric|min:8" v-slot="{ errors }">
+                  <label class="form-control-label" for="input-client">Documento del Cliente</label>
+                  <input type="text" v-model="form.client_document" class="form-control" id="input-client"
+                    placeholder="">
+                  <span class="is-invalid">{{ errors[0] }}</span>
+                </validation-provider>
+              </div>
             </div>
           </div>
           <hr>
@@ -41,9 +53,10 @@ export default {
   data() {
     return {
       form: {
-        products: ''
+        products: '',
+        client_document: '',
       },
-      text_button: 'Generar pedido',
+      text_button: 'Generar proforma',
       is_send_data: false,
       is_adding: false,
       products: []
@@ -61,20 +74,21 @@ export default {
   methods: {
     deleteItem(item) {
       this.products = this.products.filter(product => product.id !== item.id)
-      this.$refs["list-products"].getProduct(item)
+      this.$refs["list-products"].deleteProductsToList(item)
     },
     addItem(item) {
       let is_added = false;
       for (const product of this.products) {
         if (product.id === item.id) {
-          product.quantity += parseFloat(item.quantity)
-          product.purchase_price += (parseFloat(item.quantity) * parseFloat(product.purchase_price))
+          product.quantity = parseFloat(product.quantity) + parseFloat(item.quantity)
+          product.price = parseFloat(product.price) + parseFloat(item.price)
           is_added = true;
         }
       }
       if (!is_added) {
         this.products.push(item)
       }
+      this.$refs["list-products"].addProductsToList(item)
       this.is_adding = false;
     },
     async selectItem(item) {
@@ -96,7 +110,9 @@ export default {
     resetForm() {
       this.form.products = []
       this.products = []
+      this.form.client_document = ''
       this.$refs['validation-observer'].reset();
+      this.$refs['list-products'].getSearch();
     },
     async sendEditData() {
       this.is_send_data = true
@@ -136,11 +152,13 @@ export default {
             await Alerts.showToastErrorMessage(result.data.message);
             return;
           }
-          Alerts.showCreatedMessage()
+          await Alerts.showCreatedMessage()
           this.resetForm()
+
+          this.$router.push({ name: 'listproforma' })
         }
       } catch (e) {
-        Alerts.showErrorMessage()
+        await Alerts.showErrorMessage()
       }
       this.is_send_data = false
     },
@@ -159,7 +177,7 @@ export default {
     total_price() {
       let total = 0;
       for (const product of this.products) {
-        total += parseFloat(product.purchase_price)
+        total += parseFloat(product.price)
       }
       return total.toFixed(2);
     },

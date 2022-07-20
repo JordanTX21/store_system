@@ -60,24 +60,37 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Button: function Button() {
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../../../components/Button.vue */ "./resources/js/components/Button.vue"));
     },
     ListProducts: function ListProducts() {
-      return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(1), __webpack_require__.e(8), __webpack_require__.e(9)]).then(__webpack_require__.bind(null, /*! ../components/ListProducts/views/ListProduct.vue */ "./resources/js/modules/proforma/components/ListProducts/views/ListProduct.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e(5), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! ../components/ListProducts/views/ListProduct.vue */ "./resources/js/modules/proforma/components/ListProducts/views/ListProduct.vue"));
     },
     TableListProducts: function TableListProducts() {
-      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ../components/ListProducts/components/TableProduct.vue */ "./resources/js/modules/proforma/components/ListProducts/components/TableProduct.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ../components/ListProducts/components/TableProduct.vue */ "./resources/js/modules/proforma/components/ListProducts/components/TableProduct.vue"));
     }
   },
   data: function data() {
     return {
       form: {
-        products: ''
+        products: '',
+        client_document: ''
       },
-      text_button: 'Generar pedido',
+      text_button: 'Generar proforma',
       is_send_data: false,
       is_adding: false,
       products: []
@@ -97,7 +110,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.products = this.products.filter(function (product) {
         return product.id !== item.id;
       });
-      this.$refs["list-products"].getProduct(item);
+      this.$refs["list-products"].deleteProductsToList(item);
     },
     addItem: function addItem(item) {
       var is_added = false;
@@ -110,8 +123,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           var product = _step.value;
 
           if (product.id === item.id) {
-            product.quantity += parseFloat(item.quantity);
-            product.purchase_price += parseFloat(item.quantity) * parseFloat(product.purchase_price);
+            product.quantity = parseFloat(product.quantity) + parseFloat(item.quantity);
+            product.price = parseFloat(product.price) + parseFloat(item.price);
             is_added = true;
           }
         }
@@ -125,6 +138,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         this.products.push(item);
       }
 
+      this.$refs["list-products"].addProductsToList(item);
       this.is_adding = false;
     },
     selectItem: function selectItem(item) {
@@ -164,7 +178,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     resetForm: function resetForm() {
       this.form.products = [];
       this.products = [];
+      this.form.client_document = '';
       this.$refs['validation-observer'].reset();
+      this.$refs['list-products'].getSearch();
     },
     sendEditData: function sendEditData() {
       var _this2 = this;
@@ -271,7 +287,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 result = _context4.sent;
 
                 if (!(result.status === 200)) {
-                  _context4.next = 13;
+                  _context4.next = 15;
                   break;
                 }
 
@@ -287,28 +303,35 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                 return _context4.abrupt("return");
 
               case 11:
-                Alerts.showCreatedMessage();
-
-                _this3.resetForm();
+                _context4.next = 13;
+                return Alerts.showCreatedMessage();
 
               case 13:
-                _context4.next = 18;
-                break;
+                _this3.resetForm();
+
+                _this3.$router.push({
+                  name: 'listproforma'
+                });
 
               case 15:
-                _context4.prev = 15;
-                _context4.t0 = _context4["catch"](1);
-                Alerts.showErrorMessage();
+                _context4.next = 21;
+                break;
 
-              case 18:
+              case 17:
+                _context4.prev = 17;
+                _context4.t0 = _context4["catch"](1);
+                _context4.next = 21;
+                return Alerts.showErrorMessage();
+
+              case 21:
                 _this3.is_send_data = false;
 
-              case 19:
+              case 22:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, null, [[1, 15]]);
+        }, _callee4, null, [[1, 17]]);
       }))();
     },
     validateStatus: function validateStatus() {
@@ -334,7 +357,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       try {
         for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
           var product = _step2.value;
-          total += parseFloat(product.purchase_price);
+          total += parseFloat(product.price);
         }
       } catch (err) {
         _iterator2.e(err);
@@ -446,7 +469,7 @@ var render = function () {
                                 _c(
                                   "span",
                                   { staticClass: "badge badge-danger" },
-                                  [_vm._v("S./" + _vm._s(_vm.total_price))]
+                                  [_vm._v("S/." + _vm._s(_vm.total_price))]
                                 ),
                               ]),
                               _vm._v(" "),
@@ -478,6 +501,85 @@ var render = function () {
                           ],
                           1
                         ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-row" }, [
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group mb-3" },
+                            [
+                              _c("validation-provider", {
+                                attrs: {
+                                  name: "Documento del Cliente",
+                                  rules: "required|numeric|min:8",
+                                },
+                                scopedSlots: _vm._u(
+                                  [
+                                    {
+                                      key: "default",
+                                      fn: function (ref) {
+                                        var errors = ref.errors
+                                        return [
+                                          _c(
+                                            "label",
+                                            {
+                                              staticClass: "form-control-label",
+                                              attrs: { for: "input-client" },
+                                            },
+                                            [_vm._v("Documento del Cliente")]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value: _vm.form.client_document,
+                                                expression:
+                                                  "form.client_document",
+                                              },
+                                            ],
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              type: "text",
+                                              id: "input-client",
+                                              placeholder: "",
+                                            },
+                                            domProps: {
+                                              value: _vm.form.client_document,
+                                            },
+                                            on: {
+                                              input: function ($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  _vm.form,
+                                                  "client_document",
+                                                  $event.target.value
+                                                )
+                                              },
+                                            },
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "span",
+                                            { staticClass: "is-invalid" },
+                                            [_vm._v(_vm._s(errors[0]))]
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                  ],
+                                  null,
+                                  true
+                                ),
+                              }),
+                            ],
+                            1
+                          ),
+                        ]),
                       ]),
                       _vm._v(" "),
                       _c("hr"),

@@ -53,3 +53,6 @@ Route::post('search-solicitude','SolicitudeController@search');
 /** PROFORMA */
 Route::resource('proforma','ProformaController');
 Route::post('search-proforma','ProformaController@search');
+/** INVOICE */
+Route::resource('invoice','InvoiceController');
+Route::post('search-invoice','InvoiceController@search');

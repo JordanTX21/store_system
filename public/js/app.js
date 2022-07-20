@@ -72560,7 +72560,7 @@ __webpack_require__.r(__webpack_exports__);
     path: '/product/listar',
     name: 'listproduct',
     component: function component() {
-      return Promise.all(/*! import() | listproduct */[__webpack_require__.e(3), __webpack_require__.e(1), __webpack_require__.e("listproduct")]).then(__webpack_require__.bind(null, /*! ../views/ListProduct.vue */ "./resources/js/modules/product/views/ListProduct.vue"));
+      return Promise.all(/*! import() | listproduct */[__webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e("listproduct")]).then(__webpack_require__.bind(null, /*! ../views/ListProduct.vue */ "./resources/js/modules/product/views/ListProduct.vue"));
     }
   }]
 });
@@ -72601,7 +72601,7 @@ __webpack_require__.r(__webpack_exports__);
     path: '/proforma/listar',
     name: 'listproforma',
     component: function component() {
-      return Promise.all(/*! import() | listproforma */[__webpack_require__.e(3), __webpack_require__.e(1), __webpack_require__.e("listproforma")]).then(__webpack_require__.bind(null, /*! ../views/ListProforma.vue */ "./resources/js/modules/proforma/views/ListProforma.vue"));
+      return Promise.all(/*! import() | listproforma */[__webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e("listproforma")]).then(__webpack_require__.bind(null, /*! ../views/ListProforma.vue */ "./resources/js/modules/proforma/views/ListProforma.vue"));
     }
   }]
 });
@@ -72642,7 +72642,7 @@ __webpack_require__.r(__webpack_exports__);
     path: '/provider/listar',
     name: 'listprovider',
     component: function component() {
-      return Promise.all(/*! import() | listprovider */[__webpack_require__.e(3), __webpack_require__.e(1), __webpack_require__.e("listprovider")]).then(__webpack_require__.bind(null, /*! ../views/ListProvider.vue */ "./resources/js/modules/provider/views/ListProvider.vue"));
+      return Promise.all(/*! import() | listprovider */[__webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e("listprovider")]).then(__webpack_require__.bind(null, /*! ../views/ListProvider.vue */ "./resources/js/modules/provider/views/ListProvider.vue"));
     }
   }]
 });
@@ -72683,7 +72683,7 @@ __webpack_require__.r(__webpack_exports__);
     path: '/role/listar',
     name: 'listrole',
     component: function component() {
-      return Promise.all(/*! import() | listrole */[__webpack_require__.e(3), __webpack_require__.e(1), __webpack_require__.e("listrole")]).then(__webpack_require__.bind(null, /*! ../views/ListRole.vue */ "./resources/js/modules/role/views/ListRole.vue"));
+      return Promise.all(/*! import() | listrole */[__webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e("listrole")]).then(__webpack_require__.bind(null, /*! ../views/ListRole.vue */ "./resources/js/modules/role/views/ListRole.vue"));
     }
   }]
 });
@@ -72724,7 +72724,7 @@ __webpack_require__.r(__webpack_exports__);
     path: '/solicitude/listar',
     name: 'listsolicitude',
     component: function component() {
-      return Promise.all(/*! import() | listsolicitude */[__webpack_require__.e(3), __webpack_require__.e(1), __webpack_require__.e("listsolicitude")]).then(__webpack_require__.bind(null, /*! ../views/ListSolicitude.vue */ "./resources/js/modules/solicitude/views/ListSolicitude.vue"));
+      return Promise.all(/*! import() | listsolicitude */[__webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e("listsolicitude")]).then(__webpack_require__.bind(null, /*! ../views/ListSolicitude.vue */ "./resources/js/modules/solicitude/views/ListSolicitude.vue"));
     }
   }]
 });
@@ -72765,7 +72765,7 @@ __webpack_require__.r(__webpack_exports__);
     path: '/user/listar',
     name: 'listuser',
     component: function component() {
-      return Promise.all(/*! import() | listuser */[__webpack_require__.e(3), __webpack_require__.e(1), __webpack_require__.e("listuser")]).then(__webpack_require__.bind(null, /*! ../views/ListUser.vue */ "./resources/js/modules/user/views/ListUser.vue"));
+      return Promise.all(/*! import() | listuser */[__webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e("listuser")]).then(__webpack_require__.bind(null, /*! ../views/ListUser.vue */ "./resources/js/modules/user/views/ListUser.vue"));
     }
   }]
 });

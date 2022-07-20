@@ -4,29 +4,37 @@
             <h3 class="mb-0">Generar pedido</h3>
         </div>
         <div class="card-body">
-            <!--<validation-observer ref="validation-observer" v-slot="{ handleSubmit }">-->
-                <!--<form class="needs-validation" @submit.prevent="handleSubmit(checkForm)">-->
+            <validation-observer ref="validation-observer" v-slot="{ handleSubmit }">
+                <form class="needs-validation" @submit.prevent="handleSubmit(checkForm)">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <h3 class="mb-0">Productos añadidos</h3>
                             <div>
-                                <span>Pecio Total: <span class="badge badge-danger">S./{{ total_price }}</span></span>
+                                <span>Pecio Total: <span class="badge badge-danger">S/.{{ total_price }}</span></span>
                                 <span>Cantidad Total: <span class="badge badge-danger">{{ total_quantity
                                 }}</span></span>
                             </div>
                         </div>
                         <div class="card-body">
                             <TableListProducts ref="table" :listAll="products" :is_search="is_adding"
-                                @deleteItem="deleteItem"></TableListProducts>
+                                @deleteItem="deleteItem">
+                            </TableListProducts>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label class="form-control-label" for="input-client">Documento del Cliente</label>
+                                <input type="text" v-model="form.client_document" class="form-control" id="input-client"
+                                    placeholder="" readonly>
+                            </div>
                         </div>
                     </div>
                     <hr>
-                    <Button classname="btn btn-success" type="button" icon="" :disabled="is_send_data"
-                        :title="'Aprobar'" @click.prevent="sendEditData(1)"></Button>
-                    <Button classname="btn btn-danger" type="button" icon="" :disabled="is_send_data" :title="'Denegar'"
-                        @click.prevent="sendEditData(2)"></Button>
-                <!--</form>-->
-            <!--</validation-observer>-->
+                    <Button classname="btn btn-success" type="submit" icon="" :disabled="is_send_data"
+                        :title="'Emitir Boleta'"></Button>
+                </form>
+            </validation-observer>
         </div>
 
     </div>
@@ -43,7 +51,8 @@ export default {
     data() {
         return {
             form: {
-                products: ''
+                products: '',
+                client_document: '',
             },
             text_button: 'Generar pedido',
             is_send_data: false,
@@ -70,7 +79,7 @@ export default {
             for (const product of this.products) {
                 if (product.id === item.id) {
                     product.quantity += parseFloat(item.quantity)
-                    product.purchase_price += (parseFloat(item.quantity) * parseFloat(product.purchase_price))
+                    product.price += (parseFloat(item.quantity) * parseFloat(product.price))
                     is_added = true;
                 }
             }
@@ -84,11 +93,11 @@ export default {
             this.$emit('selectItem', item)
         },
         checkForm() {
+            console.log(this.form)
             if (this.products.length === 0) {
                 Alerts.showToastErrorMessage("Debe seleccionar al menos un producto");
                 return false;
             }
-            return true;
             this.form.products = this.products;
             if (this.status === Constants.STATUS_EDIT) {
                 this.sendEditData();
@@ -101,10 +110,7 @@ export default {
             this.products = []
             //this.$refs['validation-observer'].reset();
         },
-        async sendEditData(status) {
-            if (status) {
-                this.form.status_solicitude = status;
-            }
+        async sendEditData() {
             this.is_send_data = true
             try {
                 const body = { ...this.form }
@@ -117,6 +123,8 @@ export default {
                         }
                         await Alerts.showUpdatedMessage()
                         this.resetForm()
+
+                        window.open(`/invoice/${result.data.data.id}`, '_blank');
 
                         this.$router.push({ name: 'listproforma' })
                     }
@@ -153,6 +161,7 @@ export default {
         validateStatus() {
             if (this.status === 'EDIT') {
                 this.form.id = this.item.id
+                this.form.client_document = this.item.client_document
                 this.products = this.item.products
                 this.text_button = 'Actualizar'
             } else {
@@ -166,7 +175,7 @@ export default {
         total_price() {
             let total = 0;
             for (const product of this.products) {
-                total += parseFloat(product.purchase_price)
+                total += parseFloat(product.price)
             }
             return total.toFixed(2);
         },

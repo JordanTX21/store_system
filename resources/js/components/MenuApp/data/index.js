@@ -1,7 +1,7 @@
 export default [
     {
-        titulo:'Mantenimiento',
-        options:[
+        titulo:'Seguridad',
+        options: [
             {
                 name:'Usuarios',
                 module:'user',
@@ -18,6 +18,12 @@ export default [
                 permission:'view_role',
                 disabled:false
             },
+        ],
+        disabled:false
+    },
+    {
+        titulo:'Administracion',
+        options:[
             {
                 name:'Provedores',
                 module:'provider',
@@ -26,20 +32,26 @@ export default [
                 permission:'view_provider',
                 disabled:false
             },
-            {
-                name:'Productos',
-                module:'product',
-                icon:'fas fa-box-open',
-                nameroute:'listproduct',
-                permission:'view_product',
-                disabled:false
-            },
+        ],
+        disabled:false
+    },
+    {
+        titulo:'Almacen',
+        options: [
             {
                 name:'Generar_Pedido',
                 module:'solicitude',
                 icon:'fas fa-truck-loading',
                 nameroute:'listsolicitude',
                 permission:'view_solicitude',
+                disabled:false
+            },
+            {
+                name:'Productos',
+                module:'product',
+                icon:'fas fa-box-open',
+                nameroute:'listproduct',
+                permission:'view_product',
                 disabled:false
             },
         ],

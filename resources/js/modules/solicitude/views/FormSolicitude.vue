@@ -11,7 +11,7 @@
             <div class="card-header d-flex justify-content-between">
               <h3 class="mb-0">Productos añadidos</h3>
               <div>
-                <span>Pecio Total: <span class="badge badge-danger">S./{{ total_price }}</span></span>
+                <span>Pecio Total: <span class="badge badge-danger">S/.{{ total_price }}</span></span>
                 <span>Cantidad Total: <span class="badge badge-danger">{{ total_quantity }}</span></span>
               </div>
             </div>
@@ -61,14 +61,15 @@ export default {
   methods: {
     deleteItem(item) {
       this.products = this.products.filter(product => product.id !== item.id)
-      this.$refs["list-products"].getProduct(item)
+      //this.$refs["list-products"].getProduct(item)
     },
     addItem(item) {
       let is_added = false;
       for (const product of this.products) {
         if (product.id === item.id) {
           product.quantity += parseFloat(item.quantity)
-          product.purchase_price += (parseFloat(item.quantity) * parseFloat(product.purchase_price))
+          //product.purchase_price += (parseFloat(item.quantity) * parseFloat(product.purchase_price))
+          product.purchase_price = parseFloat(product.purchase_price) + parseFloat(item.purchase_price)
           is_added = true;
         }
       }

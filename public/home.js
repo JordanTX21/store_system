@@ -1376,7 +1376,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ([{
-  titulo: 'Mantenimiento',
+  titulo: 'Seguridad',
   options: [{
     name: 'Usuarios',
     module: 'user',
@@ -1391,12 +1391,27 @@ __webpack_require__.r(__webpack_exports__);
     nameroute: 'listrole',
     permission: 'view_role',
     disabled: false
-  }, {
+  }],
+  disabled: false
+}, {
+  titulo: 'Administracion',
+  options: [{
     name: 'Provedores',
     module: 'provider',
     icon: 'fas fa-users',
     nameroute: 'listprovider',
     permission: 'view_provider',
+    disabled: false
+  }],
+  disabled: false
+}, {
+  titulo: 'Almacen',
+  options: [{
+    name: 'Generar_Pedido',
+    module: 'solicitude',
+    icon: 'fas fa-truck-loading',
+    nameroute: 'listsolicitude',
+    permission: 'view_solicitude',
     disabled: false
   }, {
     name: 'Productos',
@@ -1404,13 +1419,6 @@ __webpack_require__.r(__webpack_exports__);
     icon: 'fas fa-box-open',
     nameroute: 'listproduct',
     permission: 'view_product',
-    disabled: false
-  }, {
-    name: 'Generar_Pedido',
-    module: 'solicitude',
-    icon: 'fas fa-truck-loading',
-    nameroute: 'listsolicitude',
-    permission: 'view_solicitude',
     disabled: false
   }],
   disabled: false

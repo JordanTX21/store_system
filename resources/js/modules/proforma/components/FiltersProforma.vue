@@ -6,14 +6,8 @@
         <div class="form-row">
           <div class="col-md-3 mb-2">
             <div class="form-group">
-              <label class="form-control-label" >Estado</label>
-              <multiselect
-                  v-model="search.status_solicitude"
-                  :options="options_select"
-                  placeholder="TODOS"
-                  deselect-label="Deseleccionar">
-                <template slot="singleLabel" slot-scope="{ option }"><span class="badge badge-pill badge-success">{{ option }}</span></template>
-              </multiselect>
+              <label class="form-control-label" for="client_document">Cliente</label>
+              <input type="text" class="form-control" id="client_document" v-model="search.client_document">
             </div>
           </div>
           <div class="col-md-3 mb-2">
@@ -52,17 +46,10 @@ export default {
   data(){
     return {
       search:{
-        status_solicitude: 'TODOS',
+        client_document: '',
         date_start: Vue.moment().format('YYYY-MM-DD'),
         date_end: Vue.moment().format('YYYY-MM-DD'),
       },
-      options_select:[
-          'TODOS',
-          'PENDIENTE',
-          'APROBADO',
-          'RECHAZADO',
-          'FINALIZADO',
-      ]
     }
   },
   props:{

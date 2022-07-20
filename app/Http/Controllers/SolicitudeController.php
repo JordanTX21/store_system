@@ -155,10 +155,7 @@ class SolicitudeController extends Controller
                 ])
                 ->get();
                 foreach ($solicitude_products as $solicitude_product) {
-                    $product_new = Product::findOrFail($solicitude_product->product_id);
-                    $product_new->update([
-                        'quantity' => $product_new->quantity + $solicitude_product->quantity
-                    ]);
+                    $product_new = Product::findOrFail($solicitude_product->product_id)->increment('quantity', $solicitude_product->quantity);
                 }
             }
             $solicitude_new = Solicitude::findOrFail($id)

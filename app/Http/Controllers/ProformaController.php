@@ -8,6 +8,7 @@ use App\User;
 use App\Proforma;
 use App\ProformaProduct;
 use App\Product;
+use App\Invoice;
 use App\Utils\WithUtils;
 
 class ProformaController extends Controller
@@ -26,7 +27,7 @@ class ProformaController extends Controller
             return response()->json(['success' => false, 'message' => 'No tiene permiso para realizar esta accion'], 200);
         }
         $proformas = Proforma::with(WithUtils::withProforma())->where('status', true)->get();
-        if(count($proformas) == 0){
+        if (count($proformas) == 0) {
             return response()->json(['success' => false, 'message' => 'No hay proformas registrados'], 200);
         }
         return response()->json(['success' => true, 'message' => 'Lista de proformas', 'data' => $proformas], 200);
@@ -55,6 +56,46 @@ class ProformaController extends Controller
         if (!app(UserController::class)->havePermission($auth_user, 'create_' . self::MODULE_NAME)) {
             return response()->json(['success' => false, 'message' => 'No tiene permiso para realizar esta accion'], 200);
         }
+        $products = $request->products;
+        $client_document = $request->client_document;
+
+        if (!$products || !is_array($products) || count($products) == 0) {
+            return response()->json(['success' => false, 'message' => 'Debe agregar al menos 1 producto para la proforma'], 200);
+        }
+        if (!$client_document) {
+            return response()->json(['success' => false, 'message' => 'Debe agregar un cliente para la proforma'], 200);
+        }
+        if (!is_numeric($client_document)) {
+            return response()->json(['success' => false, 'message' => 'El documento del cliente debe ser numerico'], 200);
+        }
+        if(strlen($client_document) < 8){
+            return response()->json(['success' => false, 'message' => 'El documento del cliente debe tener al menos 8 digitos'], 200);
+        }
+        $proforma = Proforma::create([
+            'client_document' => $client_document,
+            'create_user_id' => Auth::id(),
+            'status' => true,
+        ]);
+        /**PRIMERO VALIDA */
+        foreach ($products as $product) {
+            if (!$product['id'] || !$product['quantity']) {
+                return response()->json(['success' => false, 'message' => 'debe agregar al menos 1 producto para la solicitud'], 200);
+            }
+            $product_db = Product::findOrFail($product['id']);
+            if ($product_db->quantity < $product['quantity']) {
+                return response()->json(['success' => false, 'message' => 'No hay suficiente stock para el producto ' . $product_db->name], 200);
+            }
+        }
+        /**AHORA SI INSERTA */
+        foreach ($products as $product) {
+            Product::findOrFail($product['id'])->decrement('quantity', $product['quantity']);
+            ProformaProduct::create([
+                'proforma_id' => $proforma->id,
+                'product_id' => $product['id'],
+                'quantity' => $product['quantity']
+            ]);
+        }
+        return response()->json(['success' => true, 'message' => 'Proforma creada correctamente'], 200);
     }
 
     /**
@@ -93,6 +134,48 @@ class ProformaController extends Controller
         if (!app(UserController::class)->havePermission($auth_user, 'update_' . self::MODULE_NAME)) {
             return response()->json(['success' => false, 'message' => 'No tiene permiso para realizar esta accion'], 200);
         }
+        $products = $request->products;
+
+        if (!$products || !is_array($products) || count($products) == 0) {
+            return response()->json(['success' => false, 'message' => 'Debe agregar al menos 1 producto para la proforma'], 200);
+        }
+        $proforma = Proforma::findOrFail($id);
+        $quantity = 0;
+        $total = 0;
+        /**PRIMERO VALIDA */
+        foreach ($products as $product) {
+            if (!$product['id'] || !$product['quantity']) {
+                return response()->json(['success' => false, 'message' => 'debe agregar al menos 1 producto para la solicitud'], 200);
+            }
+            $product_db = Product::findOrFail($product['id']);
+            if ($product_db->quantity < $product['quantity']) {
+                return response()->json(['success' => false, 'message' => 'No hay suficiente stock para el producto ' . $product_db->name], 200);
+            }
+            $quantity += $product['quantity'];
+            $total += $product['quantity'] * $product_db->price;
+        }
+        /**AHORA SI INSERTA O ACTUALIZA */
+        foreach ($products as $product) {
+            ProformaProduct::updateOrCreate([
+                'proforma_id' => $proforma->id,
+                'product_id' => $product['id'],
+            ],[
+                'quantity' => $product['quantity']
+            ]);
+        }
+        $proforma->update([
+            'update_user_id' => Auth::id(),
+            'status' => true,
+        ]);
+        $invoice = Invoice::create([
+            'proforma_id' => $proforma->id,
+            'user_id' => Auth::id(),
+            'quantity' => $quantity,
+            'total' => $total,
+            'status' => true,
+        ]);
+
+        return response()->json(['success' => true, 'message' => 'Boleta creada correctamente','data'=>$invoice], 200);
     }
 
     /**
@@ -116,25 +199,48 @@ class ProformaController extends Controller
         if (!app(UserController::class)->havePermission($auth_user, 'read_' . self::MODULE_NAME)) {
             return response()->json(['success' => false, 'message' => 'No tiene permiso para realizar esta accion'], 200);
         }
+        $client_document = $request->client_document;
         $length = $request->length;
         $start = $request->start;
         $date_start = $request->date_start;
         $date_end = $request->date_end;
+        $where = [
+            ['status','=', true],
+        ];
+
+        if($client_document){
+            $where[] = ['client_document','=', $client_document];
+        }
+
         $proformas = Proforma::with(WithUtils::withProforma())
-        ->where('status', true)
-        ->whereBetween('created_at', [$date_start, $date_end])
-        ->orderBy('created_at','desc');
+            ->where($where)
+            ->whereBetween('created_at', [$date_start.' 00:00:00', $date_end.' 23:59:59'])
+            ->orderBy('created_at', 'desc');
 
         $count = $proformas->count();
 
         $proformas = $proformas
-        ->limit($length)
-        ->offset($start)
-        ->get();
+            ->limit($length)
+            ->offset($start)
+            ->get();
 
-        if(count($proformas) == 0){
+        if (count($proformas) == 0) {
             return response()->json(['success' => false, 'message' => 'No hay proformas registrados'], 200);
         }
-        return response()->json(['success' => true, 'message' => 'Lista de proformas', 'data' => $proformas,'count' => $count], 200);
+        foreach ($proformas as $key => $proforma) {
+            $products = [];
+            $proforma_products = ProformaProduct::with(WithUtils::withProformaProduct())
+            ->where([
+                'proforma_id' => $proforma->id
+            ])
+            ->get();
+            foreach ($proforma_products as $proforma_product) {
+                $proforma_product->product->quantity = $proforma_product->quantity;
+                $proforma_product->product->price = $proforma_product->product->price * $proforma_product->product->quantity;
+                $products[] = $proforma_product->product;
+            }
+            $proformas[$key]->products = $products;
+        }
+        return response()->json(['success' => true, 'message' => 'Lista de proformas', 'data' => $proformas, 'count' => $count], 200);
     }
 }

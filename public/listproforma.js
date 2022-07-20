@@ -145,12 +145,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -164,11 +158,10 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       search: {
-        status_solicitude: 'TODOS',
+        client_document: '',
         date_start: Vue.moment().format('YYYY-MM-DD'),
         date_end: Vue.moment().format('YYYY-MM-DD')
-      },
-      options_select: ['TODOS', 'PENDIENTE', 'APROBADO', 'RECHAZADO', 'FINALIZADO']
+      }
     };
   },
   props: {
@@ -273,6 +266,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -295,35 +293,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
+    showInvoice: function showInvoice(item) {
+      window.open("/invoice/".concat(item.id), '_blank');
+    },
     validateStatus: function validateStatus(status) {
       var status_string = "";
       var classname = "";
 
-      switch (status) {
-        case 0:
-          status_string = "Pendiente";
-          classname = "badge-warning";
-          break;
-
-        case 1:
-          status_string = "Aprobado";
-          classname = "badge-success";
-          break;
-
-        case 2:
-          status_string = "Rechazado";
-          classname = "badge-danger";
-          break;
-
-        case 3:
-          status_string = "Finalizado";
-          classname = "badge-primary";
-          break;
-
-        default:
-          status_string = "Pendiente";
-          classname = "badge-warning";
-          break;
+      if (status) {
+        status_string = "Vendido";
+        classname = "badge-success";
+      } else {
+        status_string = "Boleta pendiente";
+        classname = "badge-warning";
       }
 
       return "<span class=\"badge ".concat(classname, "\">").concat(status_string, "</span>");
@@ -360,7 +342,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     editItem: function editItem(item) {
       this.$router.push({
-        name: 'updatesolicitude',
+        name: 'updateproforma',
         params: {
           status: 'EDIT',
           item: item
@@ -389,7 +371,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _context.prev = 4;
                 _context.next = 7;
-                return axios["delete"]("/solicitude/".concat(item.id), _objectSpread({}, item));
+                return axios["delete"]("/proforma/".concat(item.id), _objectSpread({}, item));
 
               case 7:
                 response = _context.sent;
@@ -565,7 +547,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.table td[data-v-4a5b4ea4], .table th[data-v-4a5b4ea4] {\r\n  white-space: normal !important;\n}\n@media (max-width: 1200px) {\n.table td[data-v-4a5b4ea4], .table th[data-v-4a5b4ea4] {\r\n    white-space: nowrap !important;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.table td[data-v-4a5b4ea4],\r\n.table th[data-v-4a5b4ea4] {\r\n  white-space: normal !important;\n}\n@media (max-width: 1200px) {\n.table td[data-v-4a5b4ea4],\r\n  .table th[data-v-4a5b4ea4] {\r\n    white-space: nowrap !important;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -729,59 +711,42 @@ var render = function () {
                     [
                       _c("div", { staticClass: "form-row" }, [
                         _c("div", { staticClass: "col-md-3 mb-2" }, [
-                          _c(
-                            "div",
-                            { staticClass: "form-group" },
-                            [
-                              _c(
-                                "label",
-                                { staticClass: "form-control-label" },
-                                [_vm._v("Estado")]
-                              ),
-                              _vm._v(" "),
-                              _c("multiselect", {
-                                attrs: {
-                                  options: _vm.options_select,
-                                  placeholder: "TODOS",
-                                  "deselect-label": "Deseleccionar",
+                          _c("div", { staticClass: "form-group" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-control-label",
+                                attrs: { for: "client_document" },
+                              },
+                              [_vm._v("Cliente")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.search.client_document,
+                                  expression: "search.client_document",
                                 },
-                                scopedSlots: _vm._u(
-                                  [
-                                    {
-                                      key: "singleLabel",
-                                      fn: function (ref) {
-                                        var option = ref.option
-                                        return [
-                                          _c(
-                                            "span",
-                                            {
-                                              staticClass:
-                                                "badge badge-pill badge-success",
-                                            },
-                                            [_vm._v(_vm._s(option))]
-                                          ),
-                                        ]
-                                      },
-                                    },
-                                  ],
-                                  null,
-                                  true
-                                ),
-                                model: {
-                                  value: _vm.search.status_solicitude,
-                                  callback: function ($$v) {
-                                    _vm.$set(
-                                      _vm.search,
-                                      "status_solicitude",
-                                      $$v
-                                    )
-                                  },
-                                  expression: "search.status_solicitude",
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text", id: "client_document" },
+                              domProps: { value: _vm.search.client_document },
+                              on: {
+                                input: function ($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.search,
+                                    "client_document",
+                                    $event.target.value
+                                  )
                                 },
-                              }),
-                            ],
-                            1
-                          ),
+                              },
+                            }),
+                          ]),
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-md-3 mb-2" }, [
@@ -919,28 +884,48 @@ var render = function () {
                         _c("td", {
                           domProps: {
                             innerHTML: _vm._s(
-                              _vm.validateStatus(item.status_solicitude)
+                              _vm.validateStatus(item.update_user)
                             ),
                           },
                         }),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(item.request_user.name))]),
+                        _c("td", [_vm._v(_vm._s(item.create_user.name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(item.client_document))]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(item.created_at))]),
                         _vm._v(" "),
                         _c("td", { staticClass: "text-right" }, [
-                          item.status_solicitude === 0
-                            ? _c("div", { staticClass: "dropdown" }, [
-                                _vm._m(1, true),
-                                _vm._v(" "),
+                          _c("div", { staticClass: "dropdown" }, [
+                            _vm._m(1, true),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "dropdown-menu dropdown-menu-right dropdown-menu-arrow",
+                              },
+                              [
                                 _c(
-                                  "div",
+                                  "a",
                                   {
-                                    staticClass:
-                                      "dropdown-menu dropdown-menu-right dropdown-menu-arrow",
+                                    staticClass: "dropdown-item",
+                                    attrs: { href: "#" },
+                                    on: {
+                                      click: function ($event) {
+                                        $event.preventDefault()
+                                        return _vm.showInvoice(item)
+                                      },
+                                    },
                                   },
                                   [
-                                    _c(
+                                    _c("i", { staticClass: "fas fa-file-pdf" }),
+                                    _vm._v(" Boleta\n                    "),
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                item.update_user === null
+                                  ? _c(
                                       "a",
                                       {
                                         staticClass: "dropdown-item",
@@ -955,22 +940,38 @@ var render = function () {
                                       [
                                         _c("i", { staticClass: "fas fa-eye" }),
                                         _vm._v(
-                                          " Visualizar\n                  "
+                                          " Visualizar\n                    "
                                         ),
                                       ]
-                                    ),
-                                    _vm._v(" "),
-                                    false
-                                      ? undefined
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    false
-                                      ? undefined
-                                      : _vm._e(),
-                                  ]
-                                ),
-                              ])
-                            : _vm._e(),
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                item.update_user === null
+                                  ? _c(
+                                      "a",
+                                      {
+                                        staticClass: "dropdown-item",
+                                        attrs: { href: "#" },
+                                        on: {
+                                          click: function ($event) {
+                                            $event.preventDefault()
+                                            return _vm.deleteItem(item)
+                                          },
+                                        },
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-trash-alt",
+                                        }),
+                                        _vm._v(
+                                          " Eliminar\n                    "
+                                        ),
+                                      ]
+                                    )
+                                  : _vm._e(),
+                              ]
+                            ),
+                          ]),
                         ]),
                       ]
                     )
@@ -1012,7 +1013,7 @@ var staticRenderFns = [
               "aria-label": "Email: activate to sort column ascending",
             },
           },
-          [_vm._v("Estado\n            ")]
+          [_vm._v("Estado\n              ")]
         ),
         _vm._v(" "),
         _c(
@@ -1028,7 +1029,7 @@ var staticRenderFns = [
               "aria-label": "Name: activate to sort column ascending",
             },
           },
-          [_vm._v("Solicitante\n            ")]
+          [_vm._v("Usuario\n              ")]
         ),
         _vm._v(" "),
         _c(
@@ -1044,7 +1045,23 @@ var staticRenderFns = [
               "aria-label": "Name: activate to sort column ascending",
             },
           },
-          [_vm._v("Fecha\n            ")]
+          [_vm._v("Cliente\n              ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "sorting",
+            attrs: {
+              scope: "col",
+              tabindex: "0",
+              "aria-controls": "datatable-basic",
+              rowspan: "1",
+              colspan: "1",
+              "aria-label": "Name: activate to sort column ascending",
+            },
+          },
+          [_vm._v("Fecha\n              ")]
         ),
         _vm._v(" "),
         _c("th", {

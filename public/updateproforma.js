@@ -62,22 +62,31 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Button: function Button() {
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../../../components/Button.vue */ "./resources/js/components/Button.vue"));
     },
     ListProducts: function ListProducts() {
-      return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(1), __webpack_require__.e(8), __webpack_require__.e(9)]).then(__webpack_require__.bind(null, /*! ../components/ListProducts/views/ListProduct.vue */ "./resources/js/modules/proforma/components/ListProducts/views/ListProduct.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e(5), __webpack_require__.e(7)]).then(__webpack_require__.bind(null, /*! ../components/ListProducts/views/ListProduct.vue */ "./resources/js/modules/proforma/components/ListProducts/views/ListProduct.vue"));
     },
     TableListProducts: function TableListProducts() {
-      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ../components/ListProducts/components/TableProduct.vue */ "./resources/js/modules/proforma/components/ListProducts/components/TableProduct.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ../components/ListProducts/components/TableProduct.vue */ "./resources/js/modules/proforma/components/ListProducts/components/TableProduct.vue"));
     }
   },
   data: function data() {
     return {
       form: {
-        products: ''
+        products: '',
+        client_document: ''
       },
       text_button: 'Generar pedido',
       is_send_data: false,
@@ -113,7 +122,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
           if (product.id === item.id) {
             product.quantity += parseFloat(item.quantity);
-            product.purchase_price += parseFloat(item.quantity) * parseFloat(product.purchase_price);
+            product.price += parseFloat(item.quantity) * parseFloat(product.price);
             is_added = true;
           }
         }
@@ -150,12 +159,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }))();
     },
     checkForm: function checkForm() {
+      console.log(this.form);
+
       if (this.products.length === 0) {
         Alerts.showToastErrorMessage("Debe seleccionar al menos un producto");
         return false;
       }
 
-      return true;
       this.form.products = this.products;
 
       if (this.status === Constants.STATUS_EDIT) {
@@ -168,7 +178,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.form.products = [];
       this.products = []; //this.$refs['validation-observer'].reset();
     },
-    sendEditData: function sendEditData(status) {
+    sendEditData: function sendEditData() {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
@@ -177,14 +187,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                if (status) {
-                  _this2.form.status_solicitude = status;
-                }
-
                 _this2.is_send_data = true;
-                _context3.prev = 2;
+                _context3.prev = 1;
                 body = _objectSpread({}, _this2.form);
-                _context3.next = 6;
+                _context3.next = 5;
                 return axios.put("/proforma/".concat(body.id), _objectSpread({}, body)).then( /*#__PURE__*/function () {
                   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(result) {
                     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
@@ -192,7 +198,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                         switch (_context2.prev = _context2.next) {
                           case 0:
                             if (!(result.status === 200)) {
-                              _context2.next = 9;
+                              _context2.next = 10;
                               break;
                             }
 
@@ -214,11 +220,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                           case 7:
                             _this2.resetForm();
 
+                            window.open("/invoice/".concat(result.data.data.id), '_blank');
+
                             _this2.$router.push({
                               name: 'listproforma'
                             });
 
-                          case 9:
+                          case 10:
                           case "end":
                             return _context2.stop();
                         }
@@ -237,25 +245,25 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
                   _this2.is_search = false;
                 });
 
-              case 6:
+              case 5:
                 result = _context3.sent;
-                _context3.next = 12;
+                _context3.next = 11;
                 break;
 
-              case 9:
-                _context3.prev = 9;
-                _context3.t0 = _context3["catch"](2);
+              case 8:
+                _context3.prev = 8;
+                _context3.t0 = _context3["catch"](1);
                 Alerts.showErrorMessage();
 
-              case 12:
+              case 11:
                 _this2.is_send_data = false;
 
-              case 13:
+              case 12:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[2, 9]]);
+        }, _callee3, null, [[1, 8]]);
       }))();
     },
     sendCreateData: function sendCreateData() {
@@ -320,6 +328,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     validateStatus: function validateStatus() {
       if (this.status === 'EDIT') {
         this.form.id = this.item.id;
+        this.form.client_document = this.item.client_document;
         this.products = this.item.products;
         this.text_button = 'Actualizar';
       } else {
@@ -341,7 +350,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       try {
         for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
           var product = _step2.value;
-          total += parseFloat(product.purchase_price);
+          total += parseFloat(product.price);
         }
       } catch (err) {
         _iterator2.e(err);
@@ -409,77 +418,141 @@ var render = function () {
       "div",
       { staticClass: "card-body" },
       [
-        _c("div", { staticClass: "card" }, [
-          _c(
-            "div",
-            { staticClass: "card-header d-flex justify-content-between" },
-            [
-              _c("h3", { staticClass: "mb-0" }, [_vm._v("Productos añadidos")]),
-              _vm._v(" "),
-              _c("div", [
-                _c("span", [
-                  _vm._v("Pecio Total: "),
-                  _c("span", { staticClass: "badge badge-danger" }, [
-                    _vm._v("S./" + _vm._s(_vm.total_price)),
-                  ]),
-                ]),
-                _vm._v(" "),
-                _c("span", [
-                  _vm._v("Cantidad Total: "),
-                  _c("span", { staticClass: "badge badge-danger" }, [
-                    _vm._v(_vm._s(_vm.total_quantity)),
-                  ]),
-                ]),
-              ]),
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-body" },
-            [
-              _c("TableListProducts", {
-                ref: "table",
-                attrs: { listAll: _vm.products, is_search: _vm.is_adding },
-                on: { deleteItem: _vm.deleteItem },
-              }),
-            ],
-            1
-          ),
-        ]),
-        _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("Button", {
-          attrs: {
-            classname: "btn btn-success",
-            type: "button",
-            icon: "",
-            disabled: _vm.is_send_data,
-            title: "Aprobar",
-          },
-          on: {
-            click: function ($event) {
-              $event.preventDefault()
-              return _vm.sendEditData(1)
+        _c("validation-observer", {
+          ref: "validation-observer",
+          scopedSlots: _vm._u([
+            {
+              key: "default",
+              fn: function (ref) {
+                var handleSubmit = ref.handleSubmit
+                return [
+                  _c(
+                    "form",
+                    {
+                      staticClass: "needs-validation",
+                      on: {
+                        submit: function ($event) {
+                          $event.preventDefault()
+                          return handleSubmit(_vm.checkForm)
+                        },
+                      },
+                    },
+                    [
+                      _c("div", { staticClass: "card" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "card-header d-flex justify-content-between",
+                          },
+                          [
+                            _c("h3", { staticClass: "mb-0" }, [
+                              _vm._v("Productos añadidos"),
+                            ]),
+                            _vm._v(" "),
+                            _c("div", [
+                              _c("span", [
+                                _vm._v("Pecio Total: "),
+                                _c(
+                                  "span",
+                                  { staticClass: "badge badge-danger" },
+                                  [_vm._v("S/." + _vm._s(_vm.total_price))]
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c("span", [
+                                _vm._v("Cantidad Total: "),
+                                _c(
+                                  "span",
+                                  { staticClass: "badge badge-danger" },
+                                  [_vm._v(_vm._s(_vm.total_quantity))]
+                                ),
+                              ]),
+                            ]),
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "card-body" },
+                          [
+                            _c("TableListProducts", {
+                              ref: "table",
+                              attrs: {
+                                listAll: _vm.products,
+                                is_search: _vm.is_adding,
+                              },
+                              on: { deleteItem: _vm.deleteItem },
+                            }),
+                          ],
+                          1
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-row" }, [
+                        _c("div", { staticClass: "col-md-4" }, [
+                          _c("div", { staticClass: "form-group mb-3" }, [
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-control-label",
+                                attrs: { for: "input-client" },
+                              },
+                              [_vm._v("Documento del Cliente")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.client_document,
+                                  expression: "form.client_document",
+                                },
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                type: "text",
+                                id: "input-client",
+                                placeholder: "",
+                                readonly: "",
+                              },
+                              domProps: { value: _vm.form.client_document },
+                              on: {
+                                input: function ($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "client_document",
+                                    $event.target.value
+                                  )
+                                },
+                              },
+                            }),
+                          ]),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("Button", {
+                        attrs: {
+                          classname: "btn btn-success",
+                          type: "submit",
+                          icon: "",
+                          disabled: _vm.is_send_data,
+                          title: "Emitir Boleta",
+                        },
+                      }),
+                    ],
+                    1
+                  ),
+                ]
+              },
             },
-          },
-        }),
-        _vm._v(" "),
-        _c("Button", {
-          attrs: {
-            classname: "btn btn-danger",
-            type: "button",
-            icon: "",
-            disabled: _vm.is_send_data,
-            title: "Denegar",
-          },
-          on: {
-            click: function ($event) {
-              $event.preventDefault()
-              return _vm.sendEditData(2)
-            },
-          },
+          ]),
         }),
       ],
       1

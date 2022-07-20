@@ -66,10 +66,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ../../../components/Button.vue */ "./resources/js/components/Button.vue"));
     },
     ListProducts: function ListProducts() {
-      return Promise.all(/*! import() */[__webpack_require__.e(3), __webpack_require__.e(1), __webpack_require__.e(5), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ../components/ListProducts/views/ListProduct.vue */ "./resources/js/modules/solicitude/components/ListProducts/views/ListProduct.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e(6), __webpack_require__.e(8)]).then(__webpack_require__.bind(null, /*! ../components/ListProducts/views/ListProduct.vue */ "./resources/js/modules/solicitude/components/ListProducts/views/ListProduct.vue"));
     },
     TableListProducts: function TableListProducts() {
-      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(5)]).then(__webpack_require__.bind(null, /*! ../components/ListProducts/components/TableProduct.vue */ "./resources/js/modules/solicitude/components/ListProducts/components/TableProduct.vue"));
+      return Promise.all(/*! import() */[__webpack_require__.e(1), __webpack_require__.e(6)]).then(__webpack_require__.bind(null, /*! ../components/ListProducts/components/TableProduct.vue */ "./resources/js/modules/solicitude/components/ListProducts/components/TableProduct.vue"));
     }
   },
   data: function data() {
@@ -96,8 +96,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     deleteItem: function deleteItem(item) {
       this.products = this.products.filter(function (product) {
         return product.id !== item.id;
-      });
-      this.$refs["list-products"].getProduct(item);
+      }); //this.$refs["list-products"].getProduct(item)
     },
     addItem: function addItem(item) {
       var is_added = false;
@@ -110,8 +109,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           var product = _step.value;
 
           if (product.id === item.id) {
-            product.quantity += parseFloat(item.quantity);
-            product.purchase_price += parseFloat(item.quantity) * parseFloat(product.purchase_price);
+            product.quantity += parseFloat(item.quantity); //product.purchase_price += (parseFloat(item.quantity) * parseFloat(product.purchase_price))
+
+            product.purchase_price = parseFloat(product.purchase_price) + parseFloat(item.purchase_price);
             is_added = true;
           }
         }
@@ -446,7 +446,7 @@ var render = function () {
                                 _c(
                                   "span",
                                   { staticClass: "badge badge-danger" },
-                                  [_vm._v("S./" + _vm._s(_vm.total_price))]
+                                  [_vm._v("S/." + _vm._s(_vm.total_price))]
                                 ),
                               ]),
                               _vm._v(" "),
