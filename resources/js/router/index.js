@@ -10,6 +10,7 @@ import providerRouter from '../modules/provider/routes/index.js'
 import productRouter from '../modules/product/routes/index.js'
 import solicitudeRouter from '../modules/solicitude/routes/index.js'
 import proformaRouter from '../modules/proforma/routes/index.js'
+import reportRouter from '../modules/report/routes/index.js'
 
 Vue.use(Meta)
 Vue.use(Router)
@@ -47,6 +48,10 @@ const routes = [
             {
                 path: '/proforma',
                 ...proformaRouter
+            },
+            {
+                path: '/report',
+                ...reportRouter
             },
         ],
         props: true

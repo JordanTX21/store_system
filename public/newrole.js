@@ -1299,6 +1299,13 @@ __webpack_require__.r(__webpack_exports__);
     nameroute: 'listproforma',
     permission: 'view_proforma',
     disabled: false
+  }, {
+    name: 'Reportes',
+    module: 'report',
+    icon: 'fas fa-shopping-cart',
+    nameroute: 'listreport',
+    permission: 'view_report',
+    disabled: false
   }],
   disabled: false
 }]);

@@ -43,7 +43,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"listproduct":"listproduct","listproforma":"listproforma","listprovider":"listprovider","listrole":"listrole","listsolicitude":"listsolicitude","listuser":"listuser","home":"home","module":"module","newproduct":"newproduct","newproforma":"newproforma","newprovider":"newprovider","newrole":"newrole","newsolicitude":"newsolicitude","newuser":"newuser","product":"product","proforma":"proforma","provider":"provider","role":"role","solicitude":"solicitude","updateproforma":"updateproforma","updatesolicitude":"updatesolicitude","user":"user"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"listproduct":"listproduct","listproforma":"listproforma","listprovider":"listprovider","listreport":"listreport","listrole":"listrole","listsolicitude":"listsolicitude","listuser":"listuser","home":"home","module":"module","newproduct":"newproduct","newproforma":"newproforma","newprovider":"newprovider","newreport":"newreport","newrole":"newrole","newsolicitude":"newsolicitude","newuser":"newuser","product":"product","proforma":"proforma","provider":"provider","report":"report","role":"role","solicitude":"solicitude","updateproforma":"updateproforma","updatesolicitude":"updatesolicitude","user":"user"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -72649,6 +72649,47 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/modules/report/routes/index.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/modules/report/routes/index.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/** MODULO BASE PARA COPIAR Y PEGAR
+ * SI NO PUEDES NI ESO YA VENDE CARAMELOS NO MAS
+ * BY JORDAN 11-02-2022*/
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'report',
+  component: function component() {
+    return __webpack_require__.e(/*! import() | report */ "report").then(__webpack_require__.bind(null, /*! ../layouts/ReportLayout.vue */ "./resources/js/modules/report/layouts/ReportLayout.vue"));
+  },
+  children: [{
+    path: '/report/new',
+    name: 'newreport',
+    component: function component() {
+      return __webpack_require__.e(/*! import() | newreport */ "newreport").then(__webpack_require__.bind(null, /*! ../views/FormReport.vue */ "./resources/js/modules/report/views/FormReport.vue"));
+    }
+  }, {
+    path: '/report/update',
+    name: 'updatereport',
+    component: function component() {
+      return __webpack_require__.e(/*! import() | updatereport */ "newreport").then(__webpack_require__.bind(null, /*! ../views/FormReport.vue */ "./resources/js/modules/report/views/FormReport.vue"));
+    },
+    props: true
+  }, {
+    path: '/report/listar',
+    name: 'listreport',
+    component: function component() {
+      return Promise.all(/*! import() | listreport */[__webpack_require__.e(2), __webpack_require__.e(1), __webpack_require__.e("listreport")]).then(__webpack_require__.bind(null, /*! ../views/ListReport.vue */ "./resources/js/modules/report/views/ListReport.vue"));
+    }
+  }]
+});
+
+/***/ }),
+
 /***/ "./resources/js/modules/role/routes/index.js":
 /*!***************************************************!*\
   !*** ./resources/js/modules/role/routes/index.js ***!
@@ -75521,11 +75562,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_product_routes_index_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../modules/product/routes/index.js */ "./resources/js/modules/product/routes/index.js");
 /* harmony import */ var _modules_solicitude_routes_index_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../modules/solicitude/routes/index.js */ "./resources/js/modules/solicitude/routes/index.js");
 /* harmony import */ var _modules_proforma_routes_index_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../modules/proforma/routes/index.js */ "./resources/js/modules/proforma/routes/index.js");
+/* harmony import */ var _modules_report_routes_index_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../modules/report/routes/index.js */ "./resources/js/modules/report/routes/index.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -75560,7 +75603,9 @@ var routes = [{
     path: '/solicitude'
   }, _modules_solicitude_routes_index_js__WEBPACK_IMPORTED_MODULE_9__["default"]), _objectSpread({
     path: '/proforma'
-  }, _modules_proforma_routes_index_js__WEBPACK_IMPORTED_MODULE_10__["default"])],
+  }, _modules_proforma_routes_index_js__WEBPACK_IMPORTED_MODULE_10__["default"]), _objectSpread({
+    path: '/report'
+  }, _modules_report_routes_index_js__WEBPACK_IMPORTED_MODULE_11__["default"])],
   props: true
 }, {
   path: '*',

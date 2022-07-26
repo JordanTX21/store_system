@@ -9,7 +9,7 @@
               </div>
               <div class="col-lg-6 col-5 text-right">
                 <router-link :to="{name:'listproforma'}" class="btn btn-sm btn-neutral">Listar</router-link>
-                <router-link :to="{name:'newproforma'}" class="btn btn-sm btn-dark">Generar Proforma</router-link>
+                <router-link :to="{name:'newproforma'}" class="btn btn-sm btn-dark">Emitir Proforma</router-link>
               </div>
             </div>
           </div>
