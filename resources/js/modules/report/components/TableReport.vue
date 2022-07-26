@@ -8,13 +8,16 @@
             <thead class="thead-light">
               <tr role="row">
                 <th scope="col" class="sorting" tabindex="0" aria-controls="datatable-basic" rowspan="1" colspan="1"
-                  aria-label="Name: activate to sort column ascending">Columna 1
+                    aria-label="Email: activate to sort column ascending">Estado
                 </th>
                 <th scope="col" class="sorting" tabindex="0" aria-controls="datatable-basic" rowspan="1" colspan="1"
-                  aria-label="Name: activate to sort column ascending">Columna 2
+                    aria-label="Name: activate to sort column ascending">Usuario
                 </th>
                 <th scope="col" class="sorting" tabindex="0" aria-controls="datatable-basic" rowspan="1" colspan="1"
-                  aria-label="Email: activate to sort column ascending">Columna 3
+                    aria-label="Name: activate to sort column ascending">Cliente
+                </th>
+                <th scope="col" class="sorting" tabindex="0" aria-controls="datatable-basic" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending">Fecha
                 </th>
                 <th scope="col" class="sorting" tabindex="0" aria-controls="datatable-basic" rowspan="1" colspan="1"
                   aria-label=": activate to sort column ascending"></th>
@@ -22,9 +25,10 @@
             </thead>
             <tbody>
               <tr role="row" class="odd" v-for="(item, index) in listAll" :key="`row_${index}`">
-                <td>{{ item.val1 }}</td>
-                <td>{{ item.val2 }}</td>
-                <td>{{ item.val3 }}</td>
+                <td v-html="validateStatus(item.update_user)"></td>
+                <td>{{ item.create_user.name }}</td>
+                <td>{{ item.client_document }}</td>
+                <td>{{ item.created_at }}</td>
                 <td class="text-right">
                   <div class="dropdown">
                     <a class="btn btn-sm btn-icon-only btn-primary" href="#" role="button" data-toggle="dropdown"
@@ -74,6 +78,18 @@ export default {
     },
   },
   methods: {
+    validateStatus(status) {
+      let status_string = "";
+      let classname = "";
+      if (status) {
+        status_string = "Vendido";
+        classname = "badge-success";
+      } else {
+        status_string = "Boleta pendiente";
+        classname = "badge-warning";
+      }
+      return `<span class="badge ${classname}">${status_string}</span>`
+    },
     zfill(number, width) {
       const numberOutput = Math.abs(number); /* Valor absoluto del número */
       const length = number.toString().length; /* Largo del número */

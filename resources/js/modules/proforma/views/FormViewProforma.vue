@@ -121,7 +121,10 @@ export default {
                             await Alerts.showToastErrorMessage(result.data.message);
                             return;
                         }
-                        await Alerts.showUpdatedMessage()
+                        await Alerts.showMessage(
+                            'Correcto',
+                            'Emitido correctamente',
+                            'success')
                         this.resetForm()
 
                         window.open(`/invoice/${result.data.data.id}`, '_blank');

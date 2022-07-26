@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <h3 class="mb-0">Registro del nuevo rol</h3>
+      <h3 class="mb-0">Crear rol</h3>
     </div>
     <div class="card-body">
       <validation-observer ref="validation-observer" v-slot="{ handleSubmit }">
@@ -136,9 +136,8 @@ export default {
       }
     },
     resetForm() {
-      for (const [index, item] of Object.entries(this.form)) {
-        item = "";
-      }
+      this.form.name = ''
+      this.fillCheckModules()
       this.$refs['validation-observer'].reset();
     },
     async sendEditData() {

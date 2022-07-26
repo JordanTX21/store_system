@@ -23,7 +23,7 @@ class RoleController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if(!app(UserController::class)->havePermission($auth_user,'read_'.self::MODULE_NAME)){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         $roles = Role::with(WithUtils::withUser())->all();
 
@@ -58,7 +58,7 @@ class RoleController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
         
         if(!app(UserController::class)->havePermission($auth_user,'create_'.self::MODULE_NAME)){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         if(!$name){
             return response()->json(['success' => false,'message' => 'El nombre del rol es requerido'], 200);
@@ -135,7 +135,7 @@ class RoleController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
         
         if(!app(UserController::class)->havePermission($auth_user,'update_'.self::MODULE_NAME)){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         if(!$name){
             return response()->json(['success' => false,'message' => 'El nombre del rol es requerido'], 200);
@@ -182,7 +182,7 @@ class RoleController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if(!app(UserController::class)->havePermission($auth_user,'delete_'.self::MODULE_NAME)){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
 
         $role = Role::findOrFail($id)->update(['status' => 0]);
@@ -194,7 +194,7 @@ class RoleController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if(!app(UserController::class)->havePermission($auth_user,'read_'.self::MODULE_NAME)){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         $where = [];
         $name = $request->name;

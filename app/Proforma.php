@@ -16,6 +16,7 @@ class Proforma extends Model
         'client_document',
         'create_user_id',
         'update_user_id',
+        'status_proforma',
         'status'
     ];
 

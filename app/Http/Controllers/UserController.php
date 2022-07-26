@@ -21,7 +21,7 @@ class UserController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if(!$this->havePermission($auth_user,'read_user')){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         $users = User::with(WithUtils::withUser())
         ->orderBy('created_at','DESC')->all();
@@ -60,7 +60,7 @@ class UserController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if(!$this->havePermission($auth_user,'create_user')){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
 
         if(!$name){
@@ -84,6 +84,15 @@ class UserController extends Controller
         }
         $request->merge(['password' => bcrypt($password)]);
 
+        $user = User::where([
+            ['email', '=' , $email],
+            ['status', '=' , true],
+        ])->first();
+
+        if($user){
+            return response()->json(['success' => false,'message' => 'El login ingresado ya se encuentra en uso, intente nuevamente'], 200);
+        }
+
         $new_user = User::create($request->all());
         $new_user->roles()->attach($role);
         $new_user->save();
@@ -101,7 +110,7 @@ class UserController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if(!$this->havePermission($auth_user,'read_user')){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
 
         $user = User::with(WithUtils::withUser())->findOrFail($id);
@@ -140,7 +149,7 @@ class UserController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if(!$this->havePermission($auth_user,'update_user')){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
 
         if(!$name){
@@ -181,7 +190,7 @@ class UserController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if(!$this->havePermission($auth_user,'delete_user')){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
 
         $user = User::findOrFail($id)->update(['status' => 0]);
@@ -211,7 +220,7 @@ class UserController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if(!$this->havePermission($auth_user,'read_user')){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
 
         $users = User::with(WithUtils::withUser())->where([
@@ -229,7 +238,7 @@ class UserController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if(!$this->havePermission($auth_user,'read_user')){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         $where = [];
         $name = $request->name;

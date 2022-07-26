@@ -101,6 +101,27 @@ export const showConfirmDeleteMessage = () => {
         }
     });*/
 }
+export const showConfirmSendProforma = () => {
+    return Swal.fire({
+        title: 'Entregar Pedido',
+        html: '¿Desea entregar el pedido?',
+        type: 'info',
+        icon: 'info',
+        showCancelButton: true,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Entregar',
+        cancelButtonText: 'Cancelar'
+    });
+    // Example of then
+    /*.then((result) => {
+        if (result.value) {
+
+        }
+    });*/
+}
 export const showConfirmAnularMessage = () => {
     return Swal.fire({
         title: 'Anular',

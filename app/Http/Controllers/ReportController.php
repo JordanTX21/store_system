@@ -19,7 +19,7 @@ class ReportController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if (!app(UserController::class)->havePermission($auth_user, 'read_' . self::MODULE_NAME)) {
-            return response()->json(['success' => false, 'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false, 'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         $type_report = $request->type_report;
 
@@ -37,7 +37,7 @@ class ReportController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if (!app(UserController::class)->havePermission($auth_user, 'read_' . self::MODULE_NAME)) {
-            return response()->json(['success' => false, 'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false, 'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
 
         $request = new Request();

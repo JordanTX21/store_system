@@ -6,8 +6,11 @@
         <div class="form-row">
           <div class="col-md-3 mb-2">
             <div class="form-group">
+              <validation-provider name="Nombre" rules="required|min:4" v-slot="{ errors }">
                 <label class="form-control-label" for="input-name">Nombre</label>
                 <input type="text" v-model="search.name" class="form-control" id="input-name" placeholder="Provedor">
+                <span class="is-invalid">{{ errors[0] }}</span>
+              </validation-provider>
             </div>
           </div>
           <div class="col-md-3 mb-2">
@@ -51,6 +54,9 @@ export default {
   },
   methods:{
     checkForm(){
+      if(this.is_search.name.length < 4){
+            Alerts.showToastErrorMessage("Debe completar el campo", 'center')
+      }
       this.$emit('search',this.search)
     },
     getDateStart(date){

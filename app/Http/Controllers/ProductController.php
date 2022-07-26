@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Provider;
 use App\Product;
 use App\Utils\WithUtils;
 
@@ -20,7 +21,7 @@ class ProductController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if(!app(UserController::class)->havePermission($auth_user,'read_product')){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         $products = Product::where('status', true)->get();
 
@@ -52,7 +53,7 @@ class ProductController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if(!app(UserController::class)->havePermission($auth_user,'create_product')){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         $name = trim($request->name);
         $unit = trim($request->unit);
@@ -67,13 +68,15 @@ class ProductController extends Controller
             return response()->json(['success' => false,'message' => 'La unidad del producto es requerida'], 200);
         }
         if(!$price){
-            return response()->json(['success' => false,'message' => 'El precio del producto es requerido'], 200);
+            $price=0;
+//            return response()->json(['success' => false,'message' => 'El precio del producto es requerido'], 200);
         }
         if(!$purchase_price){
-            return response()->json(['success' => false,'message' => 'El precio de compra del producto es requerido'], 200);
+            $purchase_price = 0;
+//            return response()->json(['success' => false,'message' => 'El precio de compra del producto es requerido'], 200);
         }
 
-        $provider = User::findOrFail($provider_id)->first();
+        $provider = Provider::findOrFail($provider_id)->first();
         if(!$provider){
             return response()->json(['success' => false,'message' => 'El provedor del producto es requerido'], 200);
         }
@@ -127,13 +130,14 @@ class ProductController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if(!app(UserController::class)->havePermission($auth_user,'update_product')){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         $name = trim($request->name);
         $unit = trim($request->unit);
         $price = $request->price;
         $purchase_price = $request->purchase_price;
         $provider_id = $request->provider_id;
+        $quantity = $request->quantity;
 
         if(!$name){
             return response()->json(['success' => false,'message' => 'El nombre del producto es requerido'], 200);
@@ -148,7 +152,7 @@ class ProductController extends Controller
             return response()->json(['success' => false,'message' => 'El precio de compra del producto es requerido'], 200);
         }
 
-        $provider = User::findOrFail($provider_id)->first();
+        $provider = Provider::findOrFail($provider_id)->first();
         if(!$provider){
             return response()->json(['success' => false,'message' => 'El provedor del producto es requerido'], 200);
         }
@@ -157,6 +161,7 @@ class ProductController extends Controller
             'name' => $name,
             'unit' => $unit,
             'price' => $price,
+            'quantity' => $quantity,
             'purchase_price' => $purchase_price,
             'provider_id' => $provider_id,
             'status' => true
@@ -176,7 +181,7 @@ class ProductController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if(!app(UserController::class)->havePermission($auth_user,'delete_product')){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         $product_new = Product::findOrFail($id)->update([
             'status' => false
@@ -189,7 +194,7 @@ class ProductController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if(!app(UserController::class)->havePermission($auth_user,'read_product')){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         $name = trim(request()->name);
         $where = [

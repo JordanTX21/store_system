@@ -5,8 +5,12 @@
     </div>
     <div class="card-body">
       <FiltersForm ref="filters-form" :is_search="is_search" @search="getSearch"></FiltersForm>
-      <TableList ref="table" :listAll="list" :is_search="is_search" @deleteItem="deleteItem" v-show="false"
+      <TableList ref="table" :listAll="list" :is_search="is_search" @deleteItem="deleteItem" v-if="false"
         @paginate="paginateContent"></TableList>
+      <TableProforma ref="table" :listAll="list" :is_search="is_search" @deleteItem="deleteItem" v-if="search.type_report === 'VENTAS'"
+        @paginate="paginateContent"></TableProforma>
+      <TableSolicitude ref="table" :listAll="list" :is_search="is_search" @deleteItem="deleteItem" v-else-if="search.type_report === 'COMPRAS'"
+        @paginate="paginateContent"></TableSolicitude>
       <hr>
     </div>
   </div>
@@ -15,17 +19,24 @@
 
 import FiltersForm from '../components/FiltersReport.vue'
 import TableList from '../components/TableReport.vue'
+import TableProforma from '../../proforma/components/TableProforma.vue'
+import TableSolicitude from '../../solicitude/components/TableSolicitude.vue'
 
 export default {
   components: {
     FiltersForm,
     TableList,
+    TableProforma,
+    TableSolicitude,
   },
   data() {
     return {
       list: [],
       paginate: 0,
       length: 10,
+      search:{
+        type_report: 'VENTAS'
+      },
       is_search: false
     }
   },
@@ -35,6 +46,7 @@ export default {
       this.getSearch();
     },
     async getSearch(search) {
+      this.search = search;
       this.is_search = true;
       let list = [];
       let body = { ...search }

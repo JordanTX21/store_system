@@ -21,7 +21,6 @@
         </form>
       </validation-observer>
     </div>
-
   </div>
 </template>
 <script>
@@ -36,7 +35,7 @@ export default {
       form: {
         name: '',
       },
-      text_button: 'Crear',
+      text_button: 'Agregar',
       is_send_data: false,
     }
   },
@@ -52,6 +51,10 @@ export default {
   methods: {
     checkForm() {
       if (this.status === Constants.STATUS_EDIT) {
+        if(this.item.name === this.form.name){
+          Alerts.showErrorMessageWithMessage("No hubo cambios");
+          return
+        }
         this.sendEditData();
       } else {
         this.sendCreateData();
@@ -101,6 +104,7 @@ export default {
           }
           Alerts.showCreatedMessage()
           this.resetForm()
+          this.$router.push({ name: 'listprovider' });
         }
       } catch (e) {
         Alerts.showErrorMessage()

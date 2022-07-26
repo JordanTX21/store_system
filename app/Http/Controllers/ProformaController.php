@@ -24,7 +24,7 @@ class ProformaController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if (!app(UserController::class)->havePermission($auth_user, 'read_' . self::MODULE_NAME)) {
-            return response()->json(['success' => false, 'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false, 'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         $proformas = Proforma::with(WithUtils::withProforma())->where('status', true)->get();
         if (count($proformas) == 0) {
@@ -54,7 +54,7 @@ class ProformaController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if (!app(UserController::class)->havePermission($auth_user, 'create_' . self::MODULE_NAME)) {
-            return response()->json(['success' => false, 'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false, 'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         $products = $request->products;
         $client_document = $request->client_document;
@@ -132,7 +132,7 @@ class ProformaController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if (!app(UserController::class)->havePermission($auth_user, 'update_' . self::MODULE_NAME)) {
-            return response()->json(['success' => false, 'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false, 'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         $products = $request->products;
 
@@ -189,7 +189,7 @@ class ProformaController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if (!app(UserController::class)->havePermission($auth_user, 'delete_' . self::MODULE_NAME)) {
-            return response()->json(['success' => false, 'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false, 'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
     }
     public function search(Request $request)
@@ -197,7 +197,7 @@ class ProformaController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if (!app(UserController::class)->havePermission($auth_user, 'read_' . self::MODULE_NAME)) {
-            return response()->json(['success' => false, 'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false, 'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         $client_document = $request->client_document;
         $length = $request->length;
@@ -238,6 +238,12 @@ class ProformaController extends Controller
                 'proforma_id' => $proforma->id
             ])
             ->get();
+            $invoice = Invoice::where([
+                ['proforma_id', '=', $proforma->id],
+                ['status','=',true]
+            ])
+            ->first();
+            $proforma->invoice = $invoice;
             foreach ($proforma_products as $proforma_product) {
                 $proforma_product->product->quantity = $proforma_product->quantity;
                 $proforma_product->product->price = $proforma_product->product->price * $proforma_product->product->quantity;
@@ -246,5 +252,22 @@ class ProformaController extends Controller
             $proformas[$key]->products = $products;
         }
         return response()->json(['success' => true, 'message' => 'Lista de proformas', 'data' => $proformas, 'count' => $count], 200);
+    }
+
+    public function send(Request $request){
+        $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
+
+        if (!app(UserController::class)->havePermission($auth_user, 'update_' . self::MODULE_NAME)) {
+            return response()->json(['success' => false, 'message' => 'Se ha detectado un acceso no permitido'], 200);
+        }
+        $proforma = Proforma::findOrFail($request->id)->update([
+            'status_proforma' => 1,
+        ]);
+
+        if(!$proforma){
+            return response()->json(['success' => false, 'message' => 'No se logró modificar el estado de la boleta'], 200);
+        }
+        return response()->json(['success' => true, 'message' => 'Productos entregados'], 200);
+
     }
 }

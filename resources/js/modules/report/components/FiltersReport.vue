@@ -28,7 +28,7 @@
               <datepicker :value="search.date_end" @input="getDateEnd"></datepicker>
             </div>
           </div>
-          <div class="col-md-3 mb-2" v-if="false">
+          <div class="col-md-3 mb-2">
             <div class="form-group">
               <label class="form-control-label d-block text-white" >Buscar</label>
               <Button classname="btn btn-default" type="submit" :disabled="is_search"></Button>
@@ -58,7 +58,7 @@ export default {
   data(){
     return {
       search:{
-        type_report: '',
+        type_report: 'VENTAS',
         date_start: Vue.moment().format('YYYY-MM-DD'),
         date_end: Vue.moment().format('YYYY-MM-DD'),
       },

@@ -19,8 +19,8 @@
                     <div class="collapse navbar-collapse" id="sidenav-collapse-main">
 
                         <ul class="navbar-nav">
-                            <ListItem v-for="(item, index) in menuList" @closePanel="dismissMenu" :title="item.titulo" v-show="!item.disabled"
-                                :options="item.options" :key="index + 'items'" />
+                            <ListItem v-for="(item, index) in menuList" @closePanel="dismissMenu" :title="item.titulo" :icon="item.icon"
+                                v-show="!item.disabled" :options="item.options" :key="index + 'items'" />
                         </ul>
 
                     </div>
@@ -67,7 +67,7 @@ export default {
         }
     },
     methods: {
-        validateOptions(){
+        validateOptions() {
             let permissions = [];
             this.userLogued.roles.forEach(item => {
                 item.permissions.forEach(permission => {
@@ -77,12 +77,12 @@ export default {
             this.menuList.forEach(item => {
                 let disableds = 0;
                 item.options.forEach(option => {
-                    if(!permissions.includes(option.permission)){
+                    if (!permissions.includes(option.permission)) {
                         option.disabled = true;
                         disableds++;
                     }
                 })
-                if(disableds == item.options.length){
+                if (disableds == item.options.length) {
                     item.disabled = true;
                 }
             })
@@ -117,6 +117,12 @@ export default {
 
 #sidenav-main.active {
     margin-left: -250px;
+}
+
+@media (max-width: 1199.98px) {
+    .sidenav {
+        transform: translateX(0) !important;
+    }
 }
 
 /*

@@ -24,8 +24,8 @@
             </div>
             <div class="col-md-4 mb-2">
               <validation-provider name="Contraseña" :rules="(status !== 'EDIT') ? 'required' : ''" v-slot="{ errors }">
-                <label class="form-control-label" for="input-password">Contraseña</label>
-                <input type="password" v-model="form.password" class="form-control" id="input-password"
+                <label class="form-control-label" for="input-passwordUsuario">Contraseña</label>
+                <input type="password" v-model="form.password" class="form-control" id="input-passwordUsuario"
                   placeholder="*********">
                 <span class="is-invalid">{{ errors[0] }}</span>
               </validation-provider>
@@ -33,8 +33,8 @@
             <div class="col-md-4 mb-2">
               <validation-provider name="Repetir Contraseña"
                 :rules="(status !== 'EDIT') ? 'required|confirmed:Contraseña' : ''" v-slot="{ errors }">
-                <label class="form-control-label" for="input-repeat_password">Repetir Contraseña</label>
-                <input type="password" v-model="form.repeat_password" class="form-control" id="input-repeat_password"
+                <label class="form-control-label" for="input-rePasswordUsuario">Repetir Contraseña</label>
+                <input type="password" v-model="form.repeat_password" class="form-control" id="input-rePasswordUsuario"
                   placeholder="*********">
                 <span class="is-invalid">{{ errors[0] }}</span>
               </validation-provider>
@@ -101,6 +101,9 @@ export default {
       this.form.role = role.id;
     },
     checkForm() {
+      if(this.form.name.length < 4){
+        return;
+      }
       if (this.status === Constants.STATUS_EDIT) {
         this.sendEditData();
       } else {
@@ -108,8 +111,12 @@ export default {
       }
     },
     resetForm() {
-      for (const [index, item] of Object.entries(this.form)) {
-        item = "";
+      this.form = {
+        name: '',
+        email: '',
+        password: '',
+        repeat_password: '',
+        role: '',
       }
       this.$refs['validation-observer'].reset();
     },

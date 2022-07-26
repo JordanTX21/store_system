@@ -20,7 +20,7 @@ class ProviderController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if(!app(UserController::class)->havePermission($auth_user,'read_provider')){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         $providers = Provider::where('status', true)->get();
 
@@ -52,7 +52,7 @@ class ProviderController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if(!app(UserController::class)->havePermission($auth_user,'create_provider')){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         $name = trim($request->name);
         if(!$name){
@@ -106,7 +106,7 @@ class ProviderController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if(!app(UserController::class)->havePermission($auth_user,'update_provider')){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         $name = trim($request->name);
         if(!$name){
@@ -133,7 +133,7 @@ class ProviderController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if(!app(UserController::class)->havePermission($auth_user,'delete_provider')){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         $provider_new = Provider::findOrFail($id)->update([
             'status' => false
@@ -148,7 +148,7 @@ class ProviderController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if(!app(UserController::class)->havePermission($auth_user,'read_provider')){
-            return response()->json(['success' => false,'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false,'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
         $name = trim(request()->name);
         $where = [

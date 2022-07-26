@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <h3 class="mb-0">Lista de Pedidos</h3>
+      <h3 class="mb-0">Lista de Proforma</h3>
     </div>
     <div class="card-body">
       <FiltersForm ref="filters-form" :is_search="is_search" @search="getSearch"></FiltersForm>

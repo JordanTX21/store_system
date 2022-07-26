@@ -25,7 +25,7 @@
             </thead>
             <tbody>
               <tr role="row" class="odd" v-for="(item, index) in listAll" :key="`row_${index}`">
-                <td v-html="validateStatus(item.update_user)"></td>
+                <td v-html="validateStatus(item)"></td>
                 <td>{{ item.create_user.name }}</td>
                 <td>{{ item.client_document }}</td>
                 <td>{{ item.created_at }}</td>
@@ -36,7 +36,10 @@
                       <i class="fas fa-bars"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                      <a class="dropdown-item" href="#" @click.prevent="showInvoice(item)">
+                      <a class="dropdown-item" href="#" @click.prevent="sendProforma(item)" v-if="!item.status_proforma">
+                        <i class="fas fa-check"></i> Despachar pedido
+                      </a>
+                      <a class="dropdown-item" href="#" @click.prevent="showInvoice(item)" v-if="item.update_user !== null">
                         <i class="fas fa-file-pdf"></i> Boleta
                       </a>
                       <a class="dropdown-item" href="#" @click.prevent="editItem(item)"  v-if="item.update_user === null">
@@ -80,13 +83,40 @@ export default {
     },
   },
   methods: {
+    async sendProforma(item){
+      const result = await Alerts.showConfirmSendProforma();
+
+      if (result.isConfirmed) {
+        try {
+          const response = await axios.post(`/send-proforma`, { ...item })
+          if (response.status === 200) {
+            const resultData = response.data;
+            if (resultData.success) {
+              item.status_proforma = 1
+              Alerts.showToastMessage(resultData.message, 'center');
+            }else{
+              Alerts.showToastErrorMessage(resultData.message, 'center');
+            }
+          }
+        } catch (e) {
+          Alerts.showErrorMessage();
+        }
+      }
+    },
     showInvoice(item) {
-      window.open(`/invoice/${item.id}`, '_blank')
+      if(!item.invoice){
+        Alerts.showToastErrorMessage("Aun no se ha generado una boleta", 'center')
+        return;
+      }
+      window.open(`/invoice/${item.invoice.id}`, '_blank')
     },
     validateStatus(status) {
       let status_string = "";
       let classname = "";
-      if (status) {
+      if(status.status_proforma){
+        status_string = "Entregado";
+        classname = "badge-primary";
+      }else if (status.update_user) {
         status_string = "Vendido";
         classname = "badge-success";
       } else {

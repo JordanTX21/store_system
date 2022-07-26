@@ -17,25 +17,30 @@
             <div class="col-md-4 mb-2">
               <validation-provider name="Unidad" rules="required" v-slot="{ errors }">
                 <label class="form-control-label" for="input-unit">Unidad</label>
-                <input type="text" v-model="form.unit" class="form-control" id="input-unit" placeholder="Ejm: (Kg,ml)">
+                <multiselect v-model="form.unit" :options="type_units" placeholder="Unidad" select-label=""
+                              deselect-label="">
+                  <template slot="singleLabel" slot-scope="{ option }"><span class="badge badge-pill badge-success">{{
+                      option
+                    }}</span></template>
+                </multiselect>
                 <span class="is-invalid">{{ errors[0] }}</span>
               </validation-provider>
             </div>
-            <div class="col-md-4 mb-2">
+            <div class="col-md-4 mb-2" v-if="status==='EDIT'">
               <validation-provider name="Cantidad" rules="required|numeric" v-slot="{ errors }">
                 <label class="form-control-label" for="input-quantity">Cantidad</label>
                 <input type="number" v-model="form.quantity" class="form-control" id="input-quantity" placeholder="0.00">
                 <span class="is-invalid">{{ errors[0] }}</span>
               </validation-provider>
             </div>
-            <div class="col-md-4 mb-2">
+            <div class="col-md-4 mb-2" v-if="status==='EDIT'">
               <validation-provider name="Precio" rules="required|min_value:0" v-slot="{ errors }">
                 <label class="form-control-label" for="input-price">Precio de Venta</label>
                 <input type="number" step=".01" v-model="form.price" class="form-control" id="input-price" placeholder="0.00">
                 <span class="is-invalid">{{ errors[0] }}</span>
               </validation-provider>
             </div>
-            <div class="col-md-4 mb-2">
+            <div class="col-md-4 mb-2" v-if="status==='EDIT'">
               <validation-provider name="Precio de Compra" rules="required|min_value:0" v-slot="{ errors }">
                 <label class="form-control-label" for="input-purchase_price">Precio de Compra</label>
                 <input type="number" step=".01" v-model="form.purchase_price" class="form-control" id="input-purchase_price" placeholder="0.00">
@@ -89,6 +94,12 @@ export default {
       is_send_data: false,
       providers: [],
       provider: '',
+      type_units: [
+          "Gramos",
+          "Litros",
+          "Unidad"
+      ],
+      type_unit: ''
     }
   },
   props: {
@@ -129,7 +140,7 @@ export default {
       try {
         const body = { ...this.form }
 
-        const result = await axios.put(`/product/${body.id}`, { ...body }).then(async (result) => {
+        const result = await axios.put(`/product/${this.item.id}`, { ...body }).then(async (result) => {
           if (result.status === 200) {
             if (!result.data.success) {
               await Alerts.showToastErrorMessage(result.data.message);
@@ -162,8 +173,9 @@ export default {
             await Alerts.showToastErrorMessage(result.data.message);
             return;
           }
-          Alerts.showCreatedMessage()
+          await Alerts.showCreatedMessage()
           this.resetForm()
+          this.$router.push({ name: 'listproduct' })
         }
       } catch (e) {
         Alerts.showErrorMessage()

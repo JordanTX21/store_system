@@ -1,6 +1,7 @@
 export default [
     {
         titulo:'Seguridad',
+        icon:'fas fa-shield-alt',
         options: [
             {
                 name:'Usuarios',
@@ -23,6 +24,7 @@ export default [
     },
     {
         titulo:'Administracion',
+        icon:'fas fa-user-cog',
         options:[
             {
                 name:'Provedores',
@@ -37,6 +39,7 @@ export default [
     },
     {
         titulo:'Almacen',
+        icon:'fas fa-boxes',
         options: [
             {
                 name:'Generar_Pedido',
@@ -59,6 +62,7 @@ export default [
     },
     {
         titulo:'Operaciones',
+        icon:'fas fa-toolbox',
         options:[
             {
                 name:'Ventas',
@@ -71,7 +75,7 @@ export default [
             {
                 name:'Reportes',
                 module:'report',
-                icon:'fas fa-shopping-cart',
+                icon:'fas fa-file',
                 nameroute:'listreport',
                 permission:'view_report',
                 disabled:false

@@ -23,7 +23,7 @@ class InvoiceController extends Controller
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         if (!app(UserController::class)->havePermission($auth_user, 'read_' . self::MODULE_NAME)) {
-            return response()->json(['success' => false, 'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false, 'message' => 'Se ha detectado un acceso no permitido'], 200);
         }
     }
 
@@ -56,10 +56,11 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
+
         $auth_user = User::with(WithUtils::withUser())->findOrFail(Auth::id());
 
         /*if (!app(UserController::class)->havePermission($auth_user, 'read_' . self::MODULE_NAME)) {
-            return response()->json(['success' => false, 'message' => 'No tiene permiso para realizar esta accion'], 200);
+            return response()->json(['success' => false, 'message' => 'Se ha detectado un acceso no permitido'], 200);
         }*/
 
         $invoice = Invoice::with(WithUtils::withInvoice())->findOrFail($id)->toArray();

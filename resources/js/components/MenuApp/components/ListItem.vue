@@ -2,13 +2,13 @@
     <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" :href="`#menu-nav-${title}`" role="button" aria-expanded="false"
             :aria-controls="`menu-nav-${title}`">
-            <i class="fas fa-toolbox"></i>
+            <i :class="icon"></i>
             <span class="nav-link-text">{{ title }}</span>
         </a>
         <div class="collapse" :id="`menu-nav-${title}`">
             <div class="navbar-inner">
                 <ul class="navbar-nav">
-                    <li class="nav-item" v-for="(item, key) in options" :key="key + 'list'" v-show="!item.disabled">
+                    <li class="nav-item ml-3" v-for="(item, key) in options" :key="key + 'list'" v-show="!item.disabled">
                         <router-link @click.native="closeView" :to="{ name: item.nameroute }" class="nav-link">
                             <i :class="`over ${item.icon}`"></i>
                             <span class="nav-link-text">{{ item.name }}</span>
@@ -23,6 +23,10 @@
 export default {
     props: {
         title: {
+            type: String,
+            default: 'Titulo'
+        },
+        icon: {
             type: String,
             default: 'Titulo'
         },
