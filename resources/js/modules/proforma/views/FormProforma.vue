@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <h3 class="mb-0">Generar pedido</h3>
+      <h3 class="mb-0">Emitir proforma</h3>
     </div>
     <div class="card-body">
       <validation-observer ref="validation-observer" v-slot="{ handleSubmit }">

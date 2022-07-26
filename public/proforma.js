@@ -129,7 +129,7 @@ var render = function () {
                       staticClass: "btn btn-sm btn-dark",
                       attrs: { to: { name: "newproforma" } },
                     },
-                    [_vm._v("Generar Proforma")]
+                    [_vm._v("Emitir Proforma")]
                   ),
                 ],
                 1

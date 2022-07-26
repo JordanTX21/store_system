@@ -217,10 +217,13 @@ class SolicitudeController extends Controller
 
         $count = $solicitudes->count();
 
+        if($length && $start){
+            $solicitudes = $solicitudes
+                ->limit($length)
+                ->offset($start);
+        }
         $solicitudes = $solicitudes
-        ->offset($start)
-        ->limit($length)
-        ->get();
+            ->get();
 
         if (count($solicitudes) == 0) {
             return response()->json(['success' => false, 'message' => 'No se encontraron resultados'], 200);
