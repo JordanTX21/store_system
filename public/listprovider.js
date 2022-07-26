@@ -133,6 +133,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -161,6 +164,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     checkForm: function checkForm() {
+      if (this.is_search.name.length < 4) {
+        Alerts.showToastErrorMessage("Debe completar el campo", 'center');
+      }
+
       this.$emit('search', this.search);
     },
     getDateStart: function getDateStart(date) {
@@ -673,46 +680,79 @@ var render = function () {
                     [
                       _c("div", { staticClass: "form-row" }, [
                         _c("div", { staticClass: "col-md-3 mb-2" }, [
-                          _c("div", { staticClass: "form-group" }, [
-                            _c(
-                              "label",
-                              {
-                                staticClass: "form-control-label",
-                                attrs: { for: "input-name" },
-                              },
-                              [_vm._v("Nombre")]
-                            ),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.search.name,
-                                  expression: "search.name",
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("validation-provider", {
+                                attrs: {
+                                  name: "Nombre",
+                                  rules: "required|min:4",
                                 },
-                              ],
-                              staticClass: "form-control",
-                              attrs: {
-                                type: "text",
-                                id: "input-name",
-                                placeholder: "Provedor",
-                              },
-                              domProps: { value: _vm.search.name },
-                              on: {
-                                input: function ($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.search,
-                                    "name",
-                                    $event.target.value
-                                  )
-                                },
-                              },
-                            }),
-                          ]),
+                                scopedSlots: _vm._u(
+                                  [
+                                    {
+                                      key: "default",
+                                      fn: function (ref) {
+                                        var errors = ref.errors
+                                        return [
+                                          _c(
+                                            "label",
+                                            {
+                                              staticClass: "form-control-label",
+                                              attrs: { for: "input-name" },
+                                            },
+                                            [_vm._v("Nombre")]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value: _vm.search.name,
+                                                expression: "search.name",
+                                              },
+                                            ],
+                                            staticClass: "form-control",
+                                            attrs: {
+                                              type: "text",
+                                              id: "input-name",
+                                              placeholder: "Provedor",
+                                            },
+                                            domProps: {
+                                              value: _vm.search.name,
+                                            },
+                                            on: {
+                                              input: function ($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  _vm.search,
+                                                  "name",
+                                                  $event.target.value
+                                                )
+                                              },
+                                            },
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "span",
+                                            { staticClass: "is-invalid" },
+                                            [_vm._v(_vm._s(errors[0]))]
+                                          ),
+                                        ]
+                                      },
+                                    },
+                                  ],
+                                  null,
+                                  true
+                                ),
+                              }),
+                            ],
+                            1
+                          ),
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-md-3 mb-2" }, [

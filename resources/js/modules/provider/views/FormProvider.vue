@@ -21,7 +21,6 @@
         </form>
       </validation-observer>
     </div>
-
   </div>
 </template>
 <script>
@@ -36,7 +35,7 @@ export default {
       form: {
         name: '',
       },
-      text_button: 'Crear',
+      text_button: 'Agregar',
       is_send_data: false,
     }
   },
@@ -101,6 +100,7 @@ export default {
           }
           Alerts.showCreatedMessage()
           this.resetForm()
+          this.$router.push({ name: 'listprovider' });
         }
       } catch (e) {
         Alerts.showErrorMessage()

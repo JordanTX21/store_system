@@ -48,7 +48,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Button: function Button() {
@@ -60,7 +59,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       form: {
         name: ''
       },
-      text_button: 'Crear',
+      text_button: 'Agregar',
       is_send_data: false
     };
   },
@@ -190,7 +189,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 result = _context3.sent;
 
                 if (!(result.status === 200)) {
-                  _context3.next = 13;
+                  _context3.next = 14;
                   break;
                 }
 
@@ -210,24 +209,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this2.resetForm();
 
-              case 13:
-                _context3.next = 18;
+                _this2.$router.push({
+                  name: 'listprovider'
+                });
+
+              case 14:
+                _context3.next = 19;
                 break;
 
-              case 15:
-                _context3.prev = 15;
+              case 16:
+                _context3.prev = 16;
                 _context3.t0 = _context3["catch"](1);
                 Alerts.showErrorMessage();
 
-              case 18:
+              case 19:
                 _this2.is_send_data = false;
 
-              case 19:
+              case 20:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[1, 15]]);
+        }, _callee3, null, [[1, 16]]);
       }))();
     },
     validateStatus: function validateStatus() {
