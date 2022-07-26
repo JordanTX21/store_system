@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
       <FiltersForm ref="filters-form" :is_search="is_search" @search="getSearch"></FiltersForm>
-      <TableList ref="table" :listAll="list" :is_search="is_search" @deleteItem="deleteItem"
+      <TableList ref="table" :listAll="list" :is_search="is_search" @deleteItem="deleteItem" v-show="false"
         @paginate="paginateContent"></TableList>
       <hr>
     </div>
@@ -42,7 +42,7 @@ export default {
       //body.length = this.length;
       //body.start = this.paginate
 
-      let url = 'search-report'
+      let url = 'generate-report'
 
       try {
         const result = await axios.post(url,body);

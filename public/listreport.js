@@ -109,6 +109,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_AppDatepicker_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../components/AppDatepicker.vue */ "./resources/js/components/AppDatepicker.vue");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /* harmony import */ var vue_multiselect__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_multiselect__WEBPACK_IMPORTED_MODULE_1__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -164,7 +176,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       search: {
-        type_report: 'TODOS',
+        type_report: '',
         date_start: Vue.moment().format('YYYY-MM-DD'),
         date_end: Vue.moment().format('YYYY-MM-DD')
       },
@@ -178,6 +190,13 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    generateExcel: function generateExcel() {
+      var url = 'generate-report-excel';
+
+      var body = _objectSpread({}, this.search);
+
+      window.open("/".concat(url, "/").concat(body.type_report, "/").concat(body.date_start, "/").concat(body.date_end), '_blank');
+    },
     checkForm: function checkForm() {
       this.$emit('search', this.search);
     },
@@ -216,9 +235,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
 //
 //
 //
@@ -467,7 +483,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 //body.length = this.length;
                 //body.start = this.paginate
 
-                url = 'search-report';
+                url = 'generate-report';
                 _context.prev = 4;
                 _context.next = 7;
                 return axios.post(url, body);
@@ -709,7 +725,7 @@ var render = function () {
                               _c("multiselect", {
                                 attrs: {
                                   options: _vm.options_report,
-                                  placeholder: "TODOS",
+                                  placeholder: "TIPO DE REPORTE",
                                   "deselect-label": "Deseleccionar",
                                 },
                                 scopedSlots: _vm._u(
@@ -787,6 +803,10 @@ var render = function () {
                           ),
                         ]),
                         _vm._v(" "),
+                        false
+                          ? undefined
+                          : _vm._e(),
+                        _vm._v(" "),
                         _c("div", { staticClass: "col-md-3 mb-2" }, [
                           _c(
                             "div",
@@ -798,14 +818,22 @@ var render = function () {
                                   staticClass:
                                     "form-control-label d-block text-white",
                                 },
-                                [_vm._v("Buscar")]
+                                [_vm._v("Exportar Excel")]
                               ),
                               _vm._v(" "),
                               _c("Button", {
                                 attrs: {
-                                  classname: "btn btn-default",
-                                  type: "submit",
+                                  classname: "btn btn-success",
+                                  icon: "fas fa-file-excel",
+                                  title: "  Exportar Excel",
+                                  type: "button",
                                   disabled: _vm.is_search,
+                                },
+                                on: {
+                                  click: function ($event) {
+                                    $event.preventDefault()
+                                    return _vm.generateExcel()
+                                  },
                                 },
                               }),
                             ],
@@ -854,23 +882,6 @@ var render = function () {
       [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-sm-12 table-responsive" }, [
-            _c(
-              "div",
-              { staticClass: "d-flex justify-content-end" },
-              [
-                _c("Button", {
-                  attrs: {
-                    classname: "btn btn-success",
-                    icon: "fas fa-file-excel",
-                    title: "Exportar Excel",
-                    type: "button",
-                    disabled: _vm.is_search,
-                  },
-                }),
-              ],
-              1
-            ),
-            _vm._v(" "),
             _c(
               "table",
               {
@@ -1098,6 +1109,14 @@ var render = function () {
         }),
         _vm._v(" "),
         _c("TableList", {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: false,
+              expression: "false",
+            },
+          ],
           ref: "table",
           attrs: { listAll: _vm.list, is_search: _vm.is_search },
           on: { deleteItem: _vm.deleteItem, paginate: _vm.paginateContent },
