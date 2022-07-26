@@ -56,7 +56,6 @@ class ProductController extends Controller
         }
         $name = trim($request->name);
         $unit = trim($request->unit);
-        $quantity = $request->quantity;
         $price = $request->price;
         $purchase_price = $request->purchase_price;
         $provider_id = $request->provider_id;
@@ -66,9 +65,6 @@ class ProductController extends Controller
         }
         if(!$unit){
             return response()->json(['success' => false,'message' => 'La unidad del producto es requerida'], 200);
-        }
-        if(!$quantity){
-            return response()->json(['success' => false,'message' => 'La cantidad del producto es requerida'], 200);
         }
         if(!$price){
             return response()->json(['success' => false,'message' => 'El precio del producto es requerido'], 200);
@@ -85,7 +81,7 @@ class ProductController extends Controller
         $product_new = Product::create([
             'name' => $name,
             'unit' => $unit,
-            'quantity' => $quantity,
+            'quantity' => 0,
             'price' => $price,
             'purchase_price' => $purchase_price,
             'provider_id' => $provider_id,
@@ -135,7 +131,6 @@ class ProductController extends Controller
         }
         $name = trim($request->name);
         $unit = trim($request->unit);
-        $quantity = $request->quantity;
         $price = $request->price;
         $purchase_price = $request->purchase_price;
         $provider_id = $request->provider_id;
@@ -145,9 +140,6 @@ class ProductController extends Controller
         }
         if(!$unit){
             return response()->json(['success' => false,'message' => 'La unidad del producto es requerida'], 200);
-        }
-        if(!$quantity){
-            return response()->json(['success' => false,'message' => 'La cantidad del producto es requerida'], 200);
         }
         if(!$price){
             return response()->json(['success' => false,'message' => 'El precio del producto es requerido'], 200);
@@ -164,7 +156,6 @@ class ProductController extends Controller
         $product_new = Product::findOrFail($id)->update([
             'name' => $name,
             'unit' => $unit,
-            'quantity' => $quantity,
             'price' => $price,
             'purchase_price' => $purchase_price,
             'provider_id' => $provider_id,

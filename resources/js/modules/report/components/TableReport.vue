@@ -3,9 +3,6 @@
     <div class="col-lg-12">
       <div class="row">
         <div class="col-sm-12 table-responsive">
-          <div class="d-flex justify-content-end">
-            <Button classname="btn btn-success" icon="fas fa-file-excel" title="Exportar Excel" type="button" :disabled="is_search"></Button>
-          </div>
           <table class="table align-items-center table-flush dataTable no-footer" id="datatable-basic" role="grid"
             aria-describedby="datatable-basic_info">
             <thead class="thead-light">

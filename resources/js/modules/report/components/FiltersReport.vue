@@ -10,7 +10,7 @@
               <multiselect
                   v-model="search.type_report"
                   :options="options_report"
-                  placeholder="TODOS"
+                  placeholder="TIPO DE REPORTE"
                   deselect-label="Deseleccionar">
                 <template slot="singleLabel" slot-scope="{ option }"><span class="badge badge-pill badge-success">{{ option }}</span></template>
               </multiselect>
@@ -28,10 +28,16 @@
               <datepicker :value="search.date_end" @input="getDateEnd"></datepicker>
             </div>
           </div>
-          <div class="col-md-3 mb-2">
+          <div class="col-md-3 mb-2" v-if="false">
             <div class="form-group">
               <label class="form-control-label d-block text-white" >Buscar</label>
               <Button classname="btn btn-default" type="submit" :disabled="is_search"></Button>
+            </div>
+          </div>
+          <div class="col-md-3 mb-2">
+            <div class="form-group">
+              <label class="form-control-label d-block text-white" >Exportar Excel</label>
+              <Button classname="btn btn-success" @click.prevent="generateExcel()" icon="fas fa-file-excel" title="  Exportar Excel" type="button" :disabled="is_search"></Button>
             </div>
           </div>
         </div>
@@ -52,7 +58,7 @@ export default {
   data(){
     return {
       search:{
-        type_report: 'TODOS',
+        type_report: '',
         date_start: Vue.moment().format('YYYY-MM-DD'),
         date_end: Vue.moment().format('YYYY-MM-DD'),
       },
@@ -69,6 +75,11 @@ export default {
     }
   },
   methods:{
+    generateExcel(){
+      let url = 'generate-report-excel'
+      let body = { ...this.search }
+      window.open(`/${url}/${body.type_report}/${body.date_start}/${body.date_end}`, '_blank');
+    },
     checkForm(){
       this.$emit('search',this.search)
     },

@@ -219,9 +219,13 @@ class ProformaController extends Controller
 
         $count = $proformas->count();
 
-        $proformas = $proformas
+        if($length && $start){
+            $proformas = $proformas
             ->limit($length)
-            ->offset($start)
+            ->offset($start);
+        }
+
+        $proformas = $proformas
             ->get();
 
         if (count($proformas) == 0) {

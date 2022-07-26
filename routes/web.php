@@ -57,5 +57,5 @@ Route::post('search-proforma','ProformaController@search');
 Route::resource('invoice','InvoiceController');
 Route::post('search-invoice','InvoiceController@search');
 /** REPORT */
-Route::resource('report','ReportController');
-Route::post('search-report','InvoiceController@search');
+Route::get('generate-report-excel/{type_report}/{date_start}/{date_end}','ReportController@generateReport');///
+Route::post('search-report','ReportController@search');
